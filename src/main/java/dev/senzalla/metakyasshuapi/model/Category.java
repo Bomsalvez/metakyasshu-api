@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.types.TypeCategory;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,7 @@ import java.util.Set;
 public class Category {
     @Id
     @Column(name = "pkCategory", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkCategory;
 
     @Size(max = 255)

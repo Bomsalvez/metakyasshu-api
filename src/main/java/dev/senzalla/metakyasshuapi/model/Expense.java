@@ -2,6 +2,7 @@ package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.types.TypeExpense;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 public class Expense {
     @Id
     @Column(name = "pkExpense", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkExpense;
 
     @Size(max = 255)
@@ -58,7 +60,7 @@ public class Expense {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "accessLevelExpense", nullable = false)
-    private AccessLevel accessLevelExpense;
+    private AccessLevel accessLevel;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

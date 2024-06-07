@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.types.TypeCard;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class Card {
     @Id
     @Column(name = "pkCard", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkCard;
 
     @Size(max = 255)

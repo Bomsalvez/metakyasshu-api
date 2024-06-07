@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 public class Goal {
     @Id
     @Column(name = "pkGoal", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkGoal;
 
     @Size(max = 255)
@@ -44,7 +46,7 @@ public class Goal {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "accessLevelGoal", nullable = false)
-    private AccessLevel accessLevelGoal;
+    private AccessLevel accessLevel;
 
     @NotNull
     @Column(name = "availabilityGoal", nullable = false)

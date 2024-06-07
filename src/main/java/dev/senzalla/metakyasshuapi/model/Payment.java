@@ -16,6 +16,7 @@ import java.time.LocalDate;
 public class Payment {
     @Id
     @Column(name = "pkPayment", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkPayment;
 
     @NotNull

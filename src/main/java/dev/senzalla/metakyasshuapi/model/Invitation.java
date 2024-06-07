@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class Invitation {
     @Id
     @Column(name = "pkInvitation", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkInvitation;
 
     @Size(max = 255)

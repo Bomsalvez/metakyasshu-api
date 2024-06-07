@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 public class Participation {
     @Id
     @Column(name = "pkParticipation", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkParticipation;
 
     @NotNull

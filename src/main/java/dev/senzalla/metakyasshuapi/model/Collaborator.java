@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,12 +17,13 @@ import java.time.LocalDate;
 public class Collaborator {
     @Id
     @Column(name = "pkCollaborator", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkCollaborator;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "accessLevelCollaborator", nullable = false)
-    private AccessLevel accessLevelCollaborator;
+    private AccessLevel accessLevel;
 
     @Size(max = 20)
     @NotNull

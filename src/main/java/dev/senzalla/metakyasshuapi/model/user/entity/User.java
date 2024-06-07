@@ -1,4 +1,4 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.user.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -20,6 +20,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @Column(name = "pkUser", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkUser;
 
     @Size(max = 255)
@@ -80,6 +81,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return confirmedUser;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        dateCreateUser = LocalDate.now();
     }
 }
 

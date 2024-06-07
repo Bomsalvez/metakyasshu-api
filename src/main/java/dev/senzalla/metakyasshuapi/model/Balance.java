@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.model;
 
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class Balance {
     @Id
     @Column(name = "pkBalance", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pkBalance;
 
     @Size(max = 255)
