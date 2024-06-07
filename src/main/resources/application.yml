@@ -1,0 +1,72 @@
+# App
+server:
+  servlet:
+    application-display-name: metakyasshu
+    context-path: /metakyasshu
+
+# Jackson
+spring:
+  jackson:
+    default-property-inclusion: non_null
+
+  # Datasource
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_metakyasshu
+    username: '${MYSQL_USER}'
+    password: '${MYSQL_PASSWORD}'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  # Email
+  mail:
+    port: 587
+    protocol: smtp
+    host: smtp.gmail.com
+    username: '${MAIL_USERNAME}'
+    password: '${MAIL_PASSWORD}'
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+# SWAGGER
+springdoc:
+  swagger-ui:
+    path: '/swagger-ui.html'
+
+swagger:
+  enable: true
+
+scheduledtask:
+  enable: false
+
+# JWT
+jwt:
+  api:
+    expiration: 86400000
+    secret: a4c47614bbbb0af8a0d4906f9508a45a61d854282e2b382900b29187cc448545
+
+
+host:
+  base_url: http://localhost:4200
+  confirmation_url: '${host.base_url}/confirm?token='
+  reset_password_url: '${host.base_url}/reset-password?token='
+  confirmation_invite_url: '${host.base_url}/invitation/confirm-invite?token='
+
+# LOGGING
+logging:
+  level:
+    root: info
+    web: ERROR
+    dev:
+      senzalla: DEBUG
+

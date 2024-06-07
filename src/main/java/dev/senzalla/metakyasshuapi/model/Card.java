@@ -1,0 +1,44 @@
+package dev.senzalla.metakyasshuapi.model;
+
+import dev.senzalla.metakyasshuapi.model.types.TypeCard;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "tbl_card", schema = "db_metakyasshu")
+public class Card {
+    @Id
+    @Column(name = "pkCard", nullable = false)
+    private Long pkCard;
+
+    @Size(max = 255)
+    @Column(name = "nameCard")
+    private String nameCard;
+
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "numberCard", nullable = false, length = 20)
+    private String numberCard;
+
+    @NotNull
+    @Column(name = "validateCard", nullable = false)
+    private LocalDate validateCard;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "typeCard", nullable = false)
+    private TypeCard typeCard;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fkUser", nullable = false)
+    private User user;
+
+}

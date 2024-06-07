@@ -1,0 +1,73 @@
+package dev.senzalla.metakyasshuapi.model;
+
+import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "tbl_goal", schema = "db_metakyasshu")
+public class Goal {
+    @Id
+    @Column(name = "pkGoal", nullable = false)
+    private Long pkGoal;
+
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "nameGoal", nullable = false)
+    private String nameGoal;
+
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "descriptionGoal", nullable = false)
+    private String descriptionGoal;
+
+    @NotNull
+    @Column(name = "valueGoal", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valueGoal;
+
+    @NotNull
+    @Column(name = "valuePayGoal", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valuePayGoal;
+
+    @Size(max = 50)
+    @Column(name = "coinGoal", length = 50)
+    private String coinGoal;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "accessLevelGoal", nullable = false)
+    private AccessLevel accessLevelGoal;
+
+    @NotNull
+    @Column(name = "availabilityGoal", nullable = false)
+    private boolean availabilityGoal = false;
+
+    @Column(name = "expirationDateGoal")
+    private LocalDate expirationDateGoal;
+
+    @NotNull
+    @Column(name = "dateCreatedGoal", nullable = false)
+    private LocalDate dateCreatedGoal;
+
+    @Column(name = "dateExecutionGoal")
+    private LocalDate dateExecutionGoal;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fkCategory", nullable = false)
+    private Category category;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fkUser", nullable = false)
+    private User user;
+
+}
