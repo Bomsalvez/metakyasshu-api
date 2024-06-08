@@ -10,7 +10,13 @@ import org.springframework.stereotype.Service;
 public class UserMapper implements InterfaceMapper<UserDto, User, UserForm, Void> {
     @Override
     public UserDto toDto(User user) {
-        return null;
+        UserDto userDto = new UserDto();
+        userDto.setPkUser(user.getPkUser());
+        userDto.setNameUser(user.getNameUser());
+        userDto.setEmailUser(user.getEmailUser());
+        userDto.setDateCreateUser(user.getDateCreateUser());
+        userDto.setImageUser(user.getImageUser());
+        return userDto;
     }
 
     @Override

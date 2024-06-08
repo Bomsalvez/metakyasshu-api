@@ -1,5 +1,7 @@
 package dev.senzalla.metakyasshuapi.controller;
 
+import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
+import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import jakarta.validation.Valid;
@@ -26,5 +28,12 @@ public class UserController {
     public ResponseEntity<Void> validateUser(@RequestParam @Valid @NotBlank String token) {
         service.validateUser(token);
         return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<UserDto> findUser(@RequestHeader("Authorization") String token) {
+        UserFilter userFilter = UserFilter.builder().token(token).build();
+        UserDto userDto = service.find(userFilter);
+        return ResponseEntity.ok(userDto);
     }
 }

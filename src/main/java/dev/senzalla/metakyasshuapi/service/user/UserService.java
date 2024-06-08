@@ -36,7 +36,7 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
 
     @Override
     public UserDto find(UserFilter userFilter) {
-        return null;
+        return findService.findUserDto(userFilter);
     }
 
     @Override
