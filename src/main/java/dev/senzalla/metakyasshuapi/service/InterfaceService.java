@@ -12,7 +12,7 @@ public interface InterfaceService<Dto, Filter, Form, Summarized> {
 
     void delete(Long pk);
 
-    Dto find(Filter filter);
+    Dto find(Long pk);
 
     Page<Summarized> findAll(Filter filter);
 

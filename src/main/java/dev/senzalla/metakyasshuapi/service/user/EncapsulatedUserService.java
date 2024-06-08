@@ -12,7 +12,11 @@ import java.util.List;
 abstract class EncapsulatedUserService implements InterfaceService<UserDto, UserFilter, UserForm, Void> {
     abstract public User findUser(UserFilter userFilter);
 
+    abstract public UserDto findUserDto(UserFilter userFilter);
+
     abstract public void validateUser(String token);
+
+    abstract public void update(UserForm userForm, String token);
 
     @Override
     public Page<Void> findAll(UserFilter userFilter) {
@@ -24,4 +28,12 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
         return List.of();
     }
 
+    @Override
+    public void update(Long pk, UserForm userForm) {
+    }
+
+    @Override
+    public UserDto find(Long pk) {
+        return null;
+    }
 }

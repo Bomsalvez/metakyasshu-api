@@ -17,6 +17,7 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     private final UserCreateService createService;
     private final UserSaveService saveService;
     private final UserFindService findService;
+    private final UserUpdateService updateService;
 
     @Override
     public void save(UserForm userForm) {
@@ -25,17 +26,7 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     }
 
     @Override
-    public void update(Long pk, UserForm userForm) {
-
-    }
-
-    @Override
-    public void delete(Long pk) {
-
-    }
-
-    @Override
-    public UserDto find(UserFilter userFilter) {
+    public UserDto findUserDto(UserFilter userFilter) {
         return findService.findUserDto(userFilter);
     }
 
@@ -50,11 +41,22 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     }
 
     @Override
+    public void update(UserForm userForm, String token) {
+        updateService.updateUser(userForm, token);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findUser(createUserFilter(username));
     }
 
     private UserFilter createUserFilter(String username) {
         return UserFilter.builder().cpfUser(username).build();
+    }
+
+
+    @Override
+    public void delete(Long pk) {
+
     }
 }

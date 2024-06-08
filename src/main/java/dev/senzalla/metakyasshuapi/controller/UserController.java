@@ -33,7 +33,13 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserDto> findUser(@RequestHeader("Authorization") String token) {
         UserFilter userFilter = UserFilter.builder().token(token).build();
-        UserDto userDto = service.find(userFilter);
+        UserDto userDto = service.findUserDto(userFilter);
         return ResponseEntity.ok(userDto);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateUser(@RequestHeader("Authorization") String token, @RequestBody @Valid UserForm userForm) {
+        service.update(userForm, token);
+        return ResponseEntity.accepted().build();
     }
 }

@@ -21,6 +21,10 @@ class UserFindService {
     private final UserMapper mapper;
 
     public User findUser(UserFilter userFilter) {
+        if (userFilter.getToken() != null) {
+            String emailUser = jwtService.getEmailUSer(userFilter.getToken());
+            userFilter.setEmailUser(emailUser);
+        }
         Optional<User> user = repository.findUserByCpfUserOrEmailUserAndConfirmedUser(userFilter.getCpfUser(), userFilter.getEmailUser(), true);
         toolService.checkUserExists(user);
         return user.get();
