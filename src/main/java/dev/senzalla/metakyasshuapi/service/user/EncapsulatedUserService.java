@@ -12,6 +12,8 @@ import java.util.List;
 abstract class EncapsulatedUserService implements InterfaceService<UserDto, UserFilter, UserForm, Void> {
     abstract public User findUser(UserFilter userFilter);
 
+    abstract public void validateUser(String token);
+
     @Override
     public Page<Void> findAll(UserFilter userFilter) {
         return null;
@@ -21,4 +23,5 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     public List<Void> findAll() {
         return List.of();
     }
+
 }

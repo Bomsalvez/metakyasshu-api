@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService extends EncapsulatedUserService implements UserDetailsService {
     private final UserCreateService createService;
+    private final UserSaveService saveService;
     private final UserFindService findService;
 
     @Override
@@ -41,6 +42,11 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     @Override
     public User findUser(UserFilter userFilter) {
         return findService.findUser(userFilter);
+    }
+
+    @Override
+    public void validateUser(String token) {
+        saveService.validateUser(token);
     }
 
     @Override

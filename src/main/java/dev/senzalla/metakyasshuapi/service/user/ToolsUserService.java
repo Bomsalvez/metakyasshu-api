@@ -2,6 +2,9 @@ package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
+import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
+import dev.senzalla.metakyasshuapi.settings.exception.DuplicateException;
+import dev.senzalla.metakyasshuapi.settings.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ToolsUserService {
+    private final MessageDecode messageDecode;
     private final UserRepository repository;
 
     public String createCode() {
@@ -40,8 +44,14 @@ public class ToolsUserService {
 
     public void checkUserExists(Optional<User> user) {
         if (user.isEmpty()) {
-//            String message = messageDecode.info("entity.user");
-            throw new RuntimeException("error.not-found");
+            String message = messageDecode.info("entity.user");
+            throw new NotFoundException("error.not-found", message);
+        }
+    }
+
+    public void checkUserConfirmed(Optional<User> user) {
+        if (user.get().isConfirmedUser()) {
+            throw new DuplicateException("error.user-validate");
         }
     }
 }

@@ -37,7 +37,7 @@ public class ResourceExceptionHandler {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         fieldErrors.forEach(fieldError -> {
             String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
-            ErrorDto error = new ErrorDto(message, fieldError.getField(), HttpStatus.BAD_REQUEST.value());
+            ErrorDto error = new ErrorDto(message, fieldError.getField(), HttpStatus.BAD_REQUEST);
             errors.add(error);
         });
         return errors;
@@ -47,6 +47,13 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorDto handle(HttpMessageNotReadableException ex) {
         String message = messageDecode.info("error.not-body");
-        return new ErrorDto(message, HttpStatus.BAD_REQUEST.value());
+        return new ErrorDto(message, HttpStatus.BAD_REQUEST);
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ErrorDto handle(NotFoundException ex) {
+        return new ErrorDto(getMessage(ex), ex.getCause().getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 }
