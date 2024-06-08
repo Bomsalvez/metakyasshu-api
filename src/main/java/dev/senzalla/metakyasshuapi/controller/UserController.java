@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/user")
@@ -53,6 +54,12 @@ public class UserController {
     @PatchMapping("password")
     public ResponseEntity<Void> updatePassword(@RequestHeader("Authorization") String token, @RequestBody @Valid PasswordForm passwordForm) {
         service.updatePassword(passwordForm, token);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("photo")
+    public ResponseEntity<Void> updatePhoto(@RequestHeader("Authorization") String token, @RequestParam("photo") MultipartFile photo) {
+        service.updatePhoto(token, photo);
         return ResponseEntity.noContent().build();
     }
 }

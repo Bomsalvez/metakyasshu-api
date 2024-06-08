@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -18,6 +19,7 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     private final UserUpdateService updateService;
     private final UserCreateService createService;
     private final UserDeleteService deleteService;
+    private final UserPhotoService photoService;
     private final UserSaveService saveService;
     private final UserFindService findService;
 
@@ -54,6 +56,11 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     @Override
     public void updatePassword(PasswordForm passwordForm, String token) {
         updateService.updatePassword(passwordForm, token);
+    }
+
+    @Override
+    public void updatePhoto(String token, MultipartFile photo) {
+        photoService.updatePhoto(token, photo);
     }
 
     @Override

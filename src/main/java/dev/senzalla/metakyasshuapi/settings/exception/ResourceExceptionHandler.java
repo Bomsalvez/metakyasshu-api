@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,13 @@ public class ResourceExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorDto handle(HttpMessageNotReadableException ex) {
+        String message = messageDecode.info("error.not-body");
+        return new ErrorDto(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ErrorDto handle(MaxUploadSizeExceededException ex) {
         String message = messageDecode.info("error.not-body");
         return new ErrorDto(message, HttpStatus.BAD_REQUEST);
     }
