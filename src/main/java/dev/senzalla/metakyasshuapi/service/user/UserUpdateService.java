@@ -1,7 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
-import dev.senzalla.metakyasshuapi.model.user.mapper.UserMapper;
 import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
 import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
@@ -26,21 +25,17 @@ class UserUpdateService {
     private final UserFindService findService;
     private final MessageDecode messageDecode;
     private final EmailService emailService;
-    private final UserMapper mapper;
 
     public void updateUser(UserForm userForm, String token) {
         try {
             UserFilter userFilter = UserFilter.builder().token(token).build();
             User user = findService.findUser(userFilter);
             log.info("Updating user: {}", user.getEmailUser());
-            User updatedUser = mapper.toEntity(userForm);
-            updatedUser.setPkUser(user.getPkUser());
-            updatedUser.setPasswordUser(passwordEncoder.encode(updatedUser.getPasswordUser()));
-            updatedUser.setKeyUser(user.getKeyUser());
-            updatedUser.setDateCreateUser(user.getDateCreateUser());
-            checkMail(user, updatedUser);
-            userRepository.save(updatedUser);
-            log.info("User updated: {}", updatedUser.getEmailUser());
+            user.setNameUser(userForm.getNameUser());
+            user.setCpfUser(userForm.getCpfUser());
+            checkMail(user, userForm);
+            userRepository.save(user);
+            log.info("User updated: {}", user.getEmailUser());
         } catch (DataIntegrityViolationException e) {
             String error = messageDecode.extractMessage(e.getMessage());
             log.error("Error update user: {}", error);
@@ -49,10 +44,11 @@ class UserUpdateService {
         }
     }
 
-    private void checkMail(User user, User updatedUser) {
-        if (!user.getEmailUser().equals(updatedUser.getEmailUser())) {
-            updatedUser.setConfirmedUser(false);
-            emailService.sendEmailCreateAccount(updatedUser);
+    private void checkMail(User user, UserForm userForm) {
+        if (!user.getEmailUser().equals(userForm.getEmailUser())) {
+            user.setConfirmedUser(false);
+            user.setEmailUser(userForm.getEmailUser());
+            emailService.sendEmailCreateAccount(user);
         }
     }
 
