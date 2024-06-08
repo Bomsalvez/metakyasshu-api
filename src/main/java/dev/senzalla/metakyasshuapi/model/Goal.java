@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -72,4 +73,6 @@ public class Goal {
     @JoinColumn(name = "fkUser", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "goal")
+    private Set<Participation> participations;
 }

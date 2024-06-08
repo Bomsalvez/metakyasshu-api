@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
+import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
 import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
 import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
@@ -17,6 +18,10 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     abstract public void validateUser(String token);
 
     abstract public void update(UserForm userForm, String token);
+
+    abstract public void delete(String token);
+
+    abstract public void updatePassword(PasswordForm passwordForm, String token);
 
     @Override
     public Page<Void> findAll(UserFilter userFilter) {
@@ -35,5 +40,9 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     @Override
     public UserDto find(Long pk) {
         return null;
+    }
+
+    @Override
+    public void delete(Long pk) {
     }
 }

@@ -1,5 +1,8 @@
 package dev.senzalla.metakyasshuapi.model.user.entity;
 
+import dev.senzalla.metakyasshuapi.model.Collaborator;
+import dev.senzalla.metakyasshuapi.model.Expense;
+import dev.senzalla.metakyasshuapi.model.Goal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -60,8 +63,26 @@ public class User implements UserDetails {
     @Column(name = "confirmedUser", nullable = false)
     private boolean confirmedUser = false;
 
+    @OneToMany(mappedBy = "userCollaborator")
+    private Set<Collaborator> userCollaborator;
+
+    @OneToMany(mappedBy = "userHost")
+    private Set<Collaborator> userHosters;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Expense> expenses;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Goal> goals;
+
     @Transient
     private Set<Permission> authorities;
+
+    @Transient
+    private Integer numberExpenses;
+
+    @Transient
+    private Integer numberGoals;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

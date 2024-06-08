@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -76,5 +77,11 @@ public class Expense {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fkCard", nullable = false)
     private Card card;
+
+    @OneToMany(mappedBy = "expense")
+    private Set<Participation> participations;
+
+    @OneToOne(mappedBy = "expense")
+    private Payment payment;
 
 }

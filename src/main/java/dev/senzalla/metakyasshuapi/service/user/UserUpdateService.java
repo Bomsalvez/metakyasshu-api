@@ -2,12 +2,14 @@ package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.mapper.UserMapper;
+import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
 import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
 import dev.senzalla.metakyasshuapi.service.email.EmailService;
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
 import dev.senzalla.metakyasshuapi.settings.exception.DuplicateException;
+import dev.senzalla.metakyasshuapi.settings.exception.UserDisabledException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,19 @@ class UserUpdateService {
         if (!user.getEmailUser().equals(updatedUser.getEmailUser())) {
             updatedUser.setConfirmedUser(false);
             emailService.sendEmailCreateAccount(updatedUser);
+        }
+    }
+
+    public void updatePassword(PasswordForm passwordForm, String token) {
+        UserFilter userFilter = UserFilter.builder().token(token).build();
+        User user = findService.findUser(userFilter);
+        if (passwordEncoder.matches(passwordForm.getOldPassword(), user.getPasswordUser())) {
+            user.setPasswordUser(passwordEncoder.encode(passwordForm.getNewPassword()));
+            userRepository.save(user);
+            log.info("Password updated: {}", user.getEmailUser());
+        } else {
+            log.error("Error updating password: {}", user.getEmailUser());
+            throw new UserDisabledException("error.user-password");
         }
     }
 }

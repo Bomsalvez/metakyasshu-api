@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
+import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
 import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
 import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
@@ -41,5 +42,17 @@ public class UserController {
     public ResponseEntity<Void> updateUser(@RequestHeader("Authorization") String token, @RequestBody @Valid UserForm userForm) {
         service.update(userForm, token);
         return ResponseEntity.accepted().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteUser(@RequestHeader("Authorization") String token) {
+        service.delete(token);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("password")
+    public ResponseEntity<Void> updatePassword(@RequestHeader("Authorization") String token, @RequestBody @Valid PasswordForm passwordForm) {
+        service.updatePassword(passwordForm, token);
+        return ResponseEntity.noContent().build();
     }
 }
