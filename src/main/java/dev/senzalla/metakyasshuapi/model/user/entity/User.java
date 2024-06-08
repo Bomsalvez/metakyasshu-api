@@ -88,11 +88,3 @@ public class User implements UserDetails {
         dateCreateUser = LocalDate.now();
     }
 }
-
-class Permission implements GrantedAuthority {
-
-    @Override
-    public String getAuthority() {
-        return "USER";
-    }
-}

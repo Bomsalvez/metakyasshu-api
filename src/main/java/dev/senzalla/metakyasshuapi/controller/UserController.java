@@ -22,9 +22,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PatchMapping("confirm/{token}")
+    @PatchMapping("confirm")
     public ResponseEntity<Void> validateUser(@RequestParam @Valid @NotBlank String token) {
         service.validateUser(token);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.accepted().build();
     }
 }

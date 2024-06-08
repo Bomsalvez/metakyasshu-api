@@ -56,4 +56,22 @@ public class ResourceExceptionHandler {
         return new ErrorDto(getMessage(ex), ex.getCause().getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UserDisabledException.class)
+    public ErrorDto handle(UserDisabledException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(UserAuthenticateException.class)
+    public ErrorDto handle(UserAuthenticateException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.FORBIDDEN);
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateException.class)
+    public ErrorDto handle(DuplicateException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.CONFLICT);
+    }
+
 }
