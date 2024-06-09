@@ -1,4 +1,4 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.category.entity;
 
 import dev.senzalla.metakyasshuapi.model.types.TypeCategory;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;

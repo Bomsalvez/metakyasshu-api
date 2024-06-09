@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.model;
 
+import dev.senzalla.metakyasshuapi.model.category.entity.Category;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
