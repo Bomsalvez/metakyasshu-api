@@ -28,7 +28,7 @@ public class SecurityWebApplication {
             .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
             .requestMatchers(HttpMethod.POST, "/user").permitAll()
             .requestMatchers(HttpMethod.PATCH, "/user/confirm/**").permitAll()
-            .requestMatchers(HttpMethod.PATCH, "/user/recover-password").permitAll()
+            .requestMatchers(HttpMethod.POST, "/user/recover").permitAll()
             .requestMatchers(HttpMethod.PATCH, "/user/reset-password").permitAll()
             .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
             .anyRequest().authenticated()

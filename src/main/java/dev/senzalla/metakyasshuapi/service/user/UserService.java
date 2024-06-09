@@ -1,10 +1,7 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
-import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
-import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
-import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
+import dev.senzalla.metakyasshuapi.model.user.module.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,6 +61,11 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     }
 
     @Override
+    public void recoverPassword(RecoverAccess recoverAccess) {
+        saveService.recoverPassword(recoverAccess);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findUser(createUserFilter(username));
     }
@@ -71,4 +73,5 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     private UserFilter createUserFilter(String username) {
         return UserFilter.builder().cpfUser(username).build();
     }
+
 }

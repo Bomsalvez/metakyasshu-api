@@ -13,4 +13,8 @@ public class EmailService {
     public void sendEmailCreateAccount(User user) {
         userCreateService.sendEmail(user);
     }
+
+    public void sendEmailRecoverPassword(User userRecover) {
+        userCreateService.sendEmail(userRecover);
+    }
 }

@@ -1,9 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
-import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
-import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
-import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
+import dev.senzalla.metakyasshuapi.model.user.module.*;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,15 +49,21 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("password")
+    @PatchMapping("/password")
     public ResponseEntity<Void> updatePassword(@RequestHeader("Authorization") String token, @RequestBody @Valid PasswordForm passwordForm) {
         service.updatePassword(passwordForm, token);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("photo")
+    @PatchMapping("/photo")
     public ResponseEntity<Void> updatePhoto(@RequestHeader("Authorization") String token, @RequestParam("photo") MultipartFile photo) {
         service.updatePhoto(token, photo);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/recover")
+    public ResponseEntity<Void> recoverAccess(@ModelAttribute("RecoverAccess") @Validated RecoverAccess recoverAccess) {
+        service.recoverPassword(recoverAccess);
+        return ResponseEntity.accepted().build();
     }
 }

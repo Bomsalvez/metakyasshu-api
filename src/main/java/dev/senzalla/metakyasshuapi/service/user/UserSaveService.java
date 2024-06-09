@@ -1,7 +1,9 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
+import dev.senzalla.metakyasshuapi.model.user.module.RecoverAccess;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
+import dev.senzalla.metakyasshuapi.service.email.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.Optional;
 class UserSaveService {
     private final ToolsUserService toolService;
     private final UserRepository repository;
+    private final EmailService emailService;
 
     public void validateUser(String token) {
         Optional<User> user = repository.findByKeyUser(token);
@@ -21,5 +24,15 @@ class UserSaveService {
         User userValidate = user.get();
         userValidate.setConfirmedUser(true);
         repository.save(userValidate);
+    }
+
+    public void recoverPassword(RecoverAccess recoverAccess) {
+        Optional<User> user = repository.findUserByCpfUserOrEmailUserAndConfirmedUser(recoverAccess.getCpf(), recoverAccess.getEmail(), true);
+        toolService.checkUserExists(user);
+        User userRecover = user.get();
+        userRecover.setKeyUser(toolService.createCode());
+        userRecover.setConfirmedUser(false);
+        repository.save(userRecover);
+        emailService.sendEmailRecoverPassword(userRecover);
     }
 }

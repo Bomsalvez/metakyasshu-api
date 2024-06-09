@@ -1,10 +1,7 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
-import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
-import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
-import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
+import dev.senzalla.metakyasshuapi.model.user.module.*;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +22,8 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     abstract public void updatePassword(PasswordForm passwordForm, String token);
 
     abstract public void updatePhoto(String token, MultipartFile photo);
+
+    abstract public  void recoverPassword(RecoverAccess recoverAccess);
 
     @Override
     public Page<Void> findAll(UserFilter userFilter) {
@@ -48,6 +47,4 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     @Override
     public void delete(Long pk) {
     }
-
-
 }
