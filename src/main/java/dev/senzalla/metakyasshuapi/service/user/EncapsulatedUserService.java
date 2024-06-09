@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
+import dev.senzalla.metakyasshuapi.model.authenticate.Login;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.*;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
@@ -23,7 +24,9 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
 
     abstract public void updatePhoto(String token, MultipartFile photo);
 
-    abstract public  void recoverPassword(RecoverAccess recoverAccess);
+    abstract public void recoverPassword(RecoverAccess recoverAccess);
+
+    abstract public void resetPassword(String token, Login login);
 
     @Override
     public Page<Void> findAll(UserFilter userFilter) {

@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
+import dev.senzalla.metakyasshuapi.model.authenticate.Login;
 import dev.senzalla.metakyasshuapi.model.user.module.*;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import jakarta.validation.Valid;
@@ -64,6 +65,12 @@ public class UserController {
     @PostMapping("/recover")
     public ResponseEntity<Void> recoverAccess(@ModelAttribute("RecoverAccess") @Validated RecoverAccess recoverAccess) {
         service.recoverPassword(recoverAccess);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PatchMapping("/reset")
+    public ResponseEntity<Void> resetPassword(@RequestParam String token, @RequestBody @Valid Login login) {
+        service.resetPassword(token, login);
         return ResponseEntity.accepted().build();
     }
 }

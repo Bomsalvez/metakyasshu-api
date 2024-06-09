@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,4 +83,10 @@ public class ResourceExceptionHandler {
         return new ErrorDto(getMessage(ex), HttpStatus.CONFLICT);
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ErrorDto handle(NoHandlerFoundException ex) {
+        String message = messageDecode.info("error.endpoint");
+        return new ErrorDto(message, HttpStatus.NOT_FOUND);
+    }
 }

@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     Optional<User> findByKeyUser(String code);
 
     Optional<User> findUserByCpfUserOrEmailUserAndConfirmedUser(String cpfUser, String emailUser, @NotNull boolean confirmedUser);
+
+    Optional<User> findUserByCpfUserAndKeyUser(String cpf, String token);
 }

@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
+import dev.senzalla.metakyasshuapi.model.authenticate.Login;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.*;
 import lombok.AllArgsConstructor;
@@ -63,6 +64,11 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     @Override
     public void recoverPassword(RecoverAccess recoverAccess) {
         saveService.recoverPassword(recoverAccess);
+    }
+
+    @Override
+    public void resetPassword(String token, Login login) {
+        saveService.resetPassword(token, login);
     }
 
     @Override
