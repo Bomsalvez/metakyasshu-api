@@ -5,6 +5,8 @@ import dev.senzalla.metakyasshuapi.model.category.entity.Category;
 import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category, CategoryFormDto, Void> {
     @Override
@@ -28,5 +30,9 @@ public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category
     @Deprecated
     public Void toSummarized(Category category) {
         return null;
+    }
+
+    public List<CategoryFormDto> toCategoryFormDto(List<Category> categories) {
+        return categories.stream().map(this::toDto).toList();
     }
 }
