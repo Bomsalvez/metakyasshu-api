@@ -1,7 +1,7 @@
 package dev.senzalla.metakyasshuapi.service.card;
 
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
-import dev.senzalla.metakyasshuapi.model.card.entity.CardRepository;
+import dev.senzalla.metakyasshuapi.repository.CardRepository;
 import dev.senzalla.metakyasshuapi.model.card.mapper.CardMapper;
 import dev.senzalla.metakyasshuapi.model.card.module.CardForm;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;

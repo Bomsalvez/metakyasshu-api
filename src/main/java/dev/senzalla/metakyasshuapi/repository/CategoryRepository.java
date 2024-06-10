@@ -1,5 +1,6 @@
-package dev.senzalla.metakyasshuapi.model.category.entity;
+package dev.senzalla.metakyasshuapi.repository;
 
+import dev.senzalla.metakyasshuapi.model.category.entity.Category;
 import dev.senzalla.metakyasshuapi.model.types.TypeCategory;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

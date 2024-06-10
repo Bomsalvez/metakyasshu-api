@@ -1,9 +1,9 @@
 package dev.senzalla.metakyasshuapi.service.category;
 
 import dev.senzalla.metakyasshuapi.model.category.entity.Category;
-import dev.senzalla.metakyasshuapi.model.category.entity.CategoryRepository;
+import dev.senzalla.metakyasshuapi.repository.CategoryRepository;
 import dev.senzalla.metakyasshuapi.model.category.entity.CategoryUser;
-import dev.senzalla.metakyasshuapi.model.category.entity.CategoryUserRepository;
+import dev.senzalla.metakyasshuapi.repository.CategoryUserRepository;
 import dev.senzalla.metakyasshuapi.model.category.mapper.CategoryMapper;
 import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;

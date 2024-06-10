@@ -7,7 +7,7 @@ import dev.senzalla.metakyasshuapi.model.card.module.CardForm;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Void> {
+public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, CardDto> {
     @Override
     public CardDto toDto(Card card) {
         CardDto cardDto = new CardDto();
@@ -30,8 +30,7 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Void
     }
 
     @Override
-    @Deprecated
-    public Void toSummarized(Card card) {
+    public CardDto toSummarized(Card card) {
         return null;
     }
 }

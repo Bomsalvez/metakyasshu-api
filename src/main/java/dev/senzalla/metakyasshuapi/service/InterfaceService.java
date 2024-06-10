@@ -16,5 +16,5 @@ public interface InterfaceService<Dto, Filter, Form, Summarized> {
 
     Page<Summarized> findAll(Filter filter);
 
-    List<Summarized> findAll();
+    List<Summarized> findAll(Filter filter, String token);
 }

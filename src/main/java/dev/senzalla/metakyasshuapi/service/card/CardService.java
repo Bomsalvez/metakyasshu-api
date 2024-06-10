@@ -13,8 +13,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class CardService implements InterfaceService<CardDto, CardFilter, CardForm, Void> {
+public class CardService implements InterfaceService<CardDto, CardFilter, CardForm, CardDto> {
     private final CardAddService addService;
+    private final CardFindService findService;
 
     @Override
     public void save(CardForm cardForm, String token) {
@@ -37,13 +38,15 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     }
 
     @Override
-    public List<Void> findAll() {
-        return List.of();
+    public List<CardDto> findAll(CardFilter cardFilter, String token) {
+        return findService.findAll(cardFilter, token);
     }
 
     @Override
     @Deprecated
-    public Page<Void> findAll(CardFilter cardFilter) {
+    public Page<CardDto> findAll(CardFilter cardFilter) {
         throw new UnsupportedOperationException();
     }
+
+
 }

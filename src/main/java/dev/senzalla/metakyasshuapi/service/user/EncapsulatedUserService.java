@@ -42,8 +42,8 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
 
     @Override
     @Deprecated
-    public List<Void> findAll() {
-        return List.of();
+    public List<Void> findAll(UserFilter userFilter, String token) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
