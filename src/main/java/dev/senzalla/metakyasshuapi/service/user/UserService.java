@@ -21,7 +21,6 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
     private final UserSaveService saveService;
     private final UserFindService findService;
 
-    @Override
     public void save(UserForm userForm) {
         createService.saveUser(userForm);
     }
@@ -80,4 +79,7 @@ public class UserService extends EncapsulatedUserService implements UserDetailsS
         return UserFilter.builder().cpfUser(username).build();
     }
 
+    public User findByToken(String token) {
+        return findService.findByToken(token);
+    }
 }

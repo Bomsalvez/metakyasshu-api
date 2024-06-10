@@ -2,7 +2,6 @@ package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.PasswordForm;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
 import dev.senzalla.metakyasshuapi.service.email.EmailService;
@@ -28,8 +27,7 @@ class UserUpdateService {
 
     public void updateUser(UserForm userForm, String token) {
         try {
-            UserFilter userFilter = UserFilter.builder().token(token).build();
-            User user = findService.findUser(userFilter);
+            User user = findService.findByToken(token);
             log.info("Updating user: {}", user.getEmailUser());
             user.setNameUser(userForm.getNameUser());
             user.setCpfUser(userForm.getCpfUser());
@@ -53,8 +51,7 @@ class UserUpdateService {
     }
 
     public void updatePassword(PasswordForm passwordForm, String token) {
-        UserFilter userFilter = UserFilter.builder().token(token).build();
-        User user = findService.findUser(userFilter);
+        User user = findService.findByToken(token);
         if (passwordEncoder.matches(passwordForm.getOldPassword(), user.getPasswordUser())) {
             user.setPasswordUser(passwordEncoder.encode(passwordForm.getNewPassword()));
             userRepository.save(user);

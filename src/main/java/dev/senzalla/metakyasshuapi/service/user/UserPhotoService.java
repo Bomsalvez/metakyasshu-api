@@ -1,6 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
 import dev.senzalla.metakyasshuapi.service.tools.ImageService;
 import dev.senzalla.metakyasshuapi.settings.exception.ImageException;
@@ -21,8 +21,7 @@ class UserPhotoService {
     public void updatePhoto(String token, MultipartFile photo) {
         try {
             imageService.checkImage(photo);
-            UserFilter userFilter = UserFilter.builder().token(token).build();
-            var user = findService.findUser(userFilter);
+            User user = findService.findByToken(token);
             user.setImageUser(photo.getBytes());
             repository.save(user);
         } catch (IOException e) {

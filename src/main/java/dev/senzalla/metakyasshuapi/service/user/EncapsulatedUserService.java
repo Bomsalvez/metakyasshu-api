@@ -10,44 +10,55 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 abstract class EncapsulatedUserService implements InterfaceService<UserDto, UserFilter, UserForm, Void> {
-    abstract public User findUser(UserFilter userFilter);
+    public abstract User findUser(UserFilter userFilter);
 
-    abstract public UserDto findUserDto(UserFilter userFilter);
+    public abstract UserDto findUserDto(UserFilter userFilter);
 
-    abstract public void validateUser(String token);
+    public abstract void validateUser(String token);
 
-    abstract public void update(UserForm userForm, String token);
+    public abstract void update(UserForm userForm, String token);
 
-    abstract public void delete(String token);
+    public abstract void delete(String token);
 
-    abstract public void updatePassword(PasswordForm passwordForm, String token);
+    public abstract void updatePassword(PasswordForm passwordForm, String token);
 
-    abstract public void updatePhoto(String token, MultipartFile photo);
+    public abstract void updatePhoto(String token, MultipartFile photo);
 
-    abstract public void recoverPassword(RecoverAccess recoverAccess);
+    public abstract void recoverPassword(RecoverAccess recoverAccess);
 
-    abstract public void resetPassword(String token, Login login);
+    public abstract void resetPassword(String token, Login login);
 
     @Override
+    @Deprecated
+    public void save(UserForm userForm, String token) {
+
+    }
+
+    @Override
+    @Deprecated
     public Page<Void> findAll(UserFilter userFilter) {
         return null;
     }
 
     @Override
+    @Deprecated
     public List<Void> findAll() {
         return List.of();
     }
 
     @Override
+    @Deprecated
     public void update(Long pk, UserForm userForm) {
     }
 
     @Override
+    @Deprecated
     public UserDto find(Long pk) {
         return null;
     }
 
     @Override
+    @Deprecated
     public void delete(Long pk) {
     }
 }

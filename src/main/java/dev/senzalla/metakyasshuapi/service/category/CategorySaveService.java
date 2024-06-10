@@ -7,7 +7,6 @@ import dev.senzalla.metakyasshuapi.model.category.entity.CategoryUserRepository;
 import dev.senzalla.metakyasshuapi.model.category.mapper.CategoryMapper;
 import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,7 @@ class CategorySaveService {
     private final CategoryMapper mapper;
 
     public void save(CategoryFormDto categoryForm, String token) {
-        UserFilter userFilter = UserFilter.builder().token(token).build();
-        User user = userService.findUser(userFilter);
+        User user = userService.findByToken(token);
         Optional<Category> categoryOptional = repository.findByNameCategory(categoryForm.getNameCategory());
         if (categoryOptional.isPresent()) {
             saveCategoryUser(categoryOptional.get(), user);

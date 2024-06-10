@@ -1,7 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.user;
 
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
-import dev.senzalla.metakyasshuapi.model.user.module.UserFilter;
 import dev.senzalla.metakyasshuapi.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,7 @@ class UserDeleteService {
     private final UserRepository repository;
 
     public void deleteUser(String token) {
-        UserFilter userFilter = UserFilter.builder().token(token).build();
-        User user = findService.findUser(userFilter);
+        User user = findService.findByToken(token);
         if (checkParticipation(user)) {
             repository.delete(user);
         }

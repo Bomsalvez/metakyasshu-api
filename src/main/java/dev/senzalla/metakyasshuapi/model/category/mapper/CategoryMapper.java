@@ -21,7 +21,7 @@ public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category
     @Override
     public Category toEntity(CategoryFormDto categoryFormDto) {
         Category category = new Category();
-        category.setNameCategory(categoryFormDto.getNameCategory());
+        category.setNameCategory(categoryFormDto.getNameCategory().replaceAll("\\s+", " "));
         category.setTypeCategory(categoryFormDto.getTypeCategory());
         return category;
     }

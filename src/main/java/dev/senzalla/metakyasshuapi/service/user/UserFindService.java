@@ -37,4 +37,9 @@ class UserFindService {
         toolService.checkUserExists(user);
         return mapper.toDto(user.get());
     }
+
+    public User findByToken(String token) {
+        UserFilter userFilter = UserFilter.builder().token(token).build();
+        return findUser(userFilter);
+    }
 }

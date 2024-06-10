@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface InterfaceService<Dto, Filter, Form, Summarized> {
 
-    void save(Form form);
+    void save(Form form, String token);
 
     void update(Long pk, Form form);
 
