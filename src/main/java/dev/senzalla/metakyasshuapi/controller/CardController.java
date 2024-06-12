@@ -30,6 +30,12 @@ public class CardController {
         return ResponseEntity.ok(cards);
     }
 
+    @GetMapping("/{pkCard}")
+    public ResponseEntity<CardDto> getCard(@PathVariable Long pkCard) {
+        CardDto card = service.find(pkCard);
+        return ResponseEntity.ok(card);
+    }
+
     @PutMapping("/{pkCard}")
     public ResponseEntity<CardDto> updateCard(@PathVariable Long pkCard, @RequestBody @Validated CardForm cardForm) {
         CardDto card = service.update(pkCard, cardForm);

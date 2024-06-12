@@ -35,7 +35,7 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
 
     @Override
     public CardDto find(Long pk) {
-        return null;
+        return findService.find(pk);
     }
 
     @Override

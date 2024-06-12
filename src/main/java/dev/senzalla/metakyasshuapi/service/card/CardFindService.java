@@ -35,4 +35,9 @@ class CardFindService {
         }
         return card.get();
     }
+
+    public CardDto find(Long pk) {
+        Card card = findCardEntity(pk);
+        return mapper.toDto(card);
+    }
 }

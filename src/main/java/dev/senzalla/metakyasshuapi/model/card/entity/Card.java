@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.model.card.entity;
 
+import dev.senzalla.metakyasshuapi.model.Expense;
 import dev.senzalla.metakyasshuapi.model.types.TypeCard;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -47,4 +49,6 @@ public class Card {
     @JoinColumn(name = "fkUser", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "card")
+    private List<Expense> expenses;
 }
