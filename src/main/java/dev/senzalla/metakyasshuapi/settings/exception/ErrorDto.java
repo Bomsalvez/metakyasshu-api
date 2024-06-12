@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class ErrorDto {
+
     private String property;
     private final String error;
     private final HttpStatus code;
@@ -18,5 +19,15 @@ public class ErrorDto {
         this.property = property;
         this.error = error;
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return """
+                {
+                    "error": "%s",
+                    "code": "%s"
+                }
+                """.formatted(error, code);
     }
 }

@@ -2,12 +2,13 @@ package dev.senzalla.metakyasshuapi.settings.security;
 
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
 import dev.senzalla.metakyasshuapi.settings.bean.AuthenticationManagerBean;
-import jakarta.servlet.http.HttpServletResponse;
+import dev.senzalla.metakyasshuapi.settings.exception.ErrorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
@@ -39,14 +40,14 @@ public class SecurityWebApplication {
   private void exceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandling) {
     exceptionHandling
         .authenticationEntryPoint((request, response, e) -> {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             String message = messageDecode.info("error.access");
-            response.getWriter().write(message);
+            ErrorDto errorDto = new ErrorDto(message, HttpStatus.UNAUTHORIZED);
+            response.getWriter().write(errorDto.toString());
         })
         .accessDeniedHandler((request, response, e) -> {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             String message = messageDecode.info("error.access");
-            response.getWriter().write(message);
+            ErrorDto errorDto = new ErrorDto(message, HttpStatus.FORBIDDEN);
+            response.getWriter().write(errorDto.toString());
         });
 }
 
