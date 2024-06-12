@@ -15,4 +15,5 @@ public class CardFilter implements Serializable {
     private String nameCard;
     private String numberCard;
     private TypeCard typeCard;
+    private String flagCard;
 }

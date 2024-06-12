@@ -25,8 +25,14 @@ public class CardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getCards(@RequestHeader("Authorization") String token, @ModelAttribute CardFilter cardFilter){
+    public ResponseEntity<List<CardDto>> getCards(@RequestHeader("Authorization") String token, @ModelAttribute CardFilter cardFilter) {
         List<CardDto> cards = service.findAll(cardFilter, token);
         return ResponseEntity.ok(cards);
+    }
+
+    @PutMapping("/{pkCard}")
+    public ResponseEntity<CardDto> updateCard(@PathVariable Long pkCard, @RequestBody @Validated CardForm cardForm) {
+        CardDto card = service.update(pkCard, cardForm);
+        return ResponseEntity.ok(card);
     }
 }

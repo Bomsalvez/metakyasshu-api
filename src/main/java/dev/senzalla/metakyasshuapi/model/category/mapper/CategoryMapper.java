@@ -27,7 +27,7 @@ public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public Void toSummarized(Category category) {
         return null;
     }

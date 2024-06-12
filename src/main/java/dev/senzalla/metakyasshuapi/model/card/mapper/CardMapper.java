@@ -16,6 +16,7 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
         cardDto.setNumberCard(card.getNumberCard());
         cardDto.setValidateCard(card.getValidateCard());
         cardDto.setTypeCard(card.getTypeCard());
+        cardDto.setFlagCard(card.getFlagCard());
         return cardDto;
     }
 
@@ -26,6 +27,7 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
         card.setNumberCard(cardForm.getNumberCard());
         card.setValidateCard(cardForm.getValidateCard());
         card.setTypeCard(cardForm.getTypeCard());
+        card.setFlagCard(cardForm.getFlagCard().replaceAll("\\s+", " "));
         return card;
     }
 

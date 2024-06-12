@@ -14,8 +14,9 @@ import java.util.List;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CardService implements InterfaceService<CardDto, CardFilter, CardForm, CardDto> {
-    private final CardAddService addService;
+    private final CardUpdateService updateService;
     private final CardFindService findService;
+    private final CardAddService addService;
 
     @Override
     public void save(CardForm cardForm, String token) {
@@ -23,8 +24,8 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     }
 
     @Override
-    public void update(Long pk, CardForm cardForm) {
-
+    public CardDto update(Long pk, CardForm cardForm) {
+        return updateService.update(pk, cardForm);
     }
 
     @Override
@@ -43,10 +44,8 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public Page<CardDto> findAll(CardFilter cardFilter) {
         throw new UnsupportedOperationException();
     }
-
-
 }

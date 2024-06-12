@@ -39,6 +39,10 @@ public class Card {
     private TypeCard typeCard;
 
     @NotNull
+    @Column(name = "flagCard", nullable = false)
+    private String flagCard;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fkUser", nullable = false)
     private User user;

@@ -1,20 +1,21 @@
 package dev.senzalla.metakyasshuapi.service;
 
+
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface InterfaceService<Dto, Filter, Form, Summarized> {
+public interface InterfaceService<D, T, F, S> {
 
-    void save(Form form, String token);
+    void save(F form, String token);
 
-    void update(Long pk, Form form);
+    D update(Long pk, F form);
 
     void delete(Long pk);
 
-    Dto find(Long pk);
+    D find(Long pk);
 
-    Page<Summarized> findAll(Filter filter);
+    Page<S> findAll(T t);
 
-    List<Summarized> findAll(Filter filter, String token);
+    List<S> findAll(T t, String token);
 }

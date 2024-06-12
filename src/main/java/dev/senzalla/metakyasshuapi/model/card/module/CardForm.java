@@ -24,8 +24,9 @@ public class CardForm implements Serializable {
     private String numberCard;
 
     @NotNull
-    private LocalDate validateCard;
-
-    @NotNull
     private TypeCard typeCard;
+
+    private LocalDate validateCard;
+    @NotNull
+    private String flagCard;
 }

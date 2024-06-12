@@ -25,4 +25,6 @@ public class CardDto implements Serializable {
     private LocalDate validateCard;
     @NotNull
     private TypeCard typeCard;
+    @NotNull
+    private String flagCard;
 }

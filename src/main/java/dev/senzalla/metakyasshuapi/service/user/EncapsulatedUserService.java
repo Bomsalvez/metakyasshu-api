@@ -29,36 +29,38 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     public abstract void resetPassword(String token, Login login);
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public void save(UserForm userForm, String token) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public Page<Void> findAll(UserFilter userFilter) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public List<Void> findAll(UserFilter userFilter, String token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    @Deprecated
-    public void update(Long pk, UserForm userForm) {
+    @Deprecated(since = "1.0", forRemoval = true)
+    public UserDto update(Long pk, UserForm userForm) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public UserDto find(Long pk) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    @Deprecated
+    @Deprecated(since = "1.0", forRemoval = true)
     public void delete(Long pk) {
+        throw new UnsupportedOperationException();
     }
 }

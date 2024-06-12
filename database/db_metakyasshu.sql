@@ -243,3 +243,6 @@ create table if not exists tbl_balance
     index idx_pkBalance (pkBalance),
     index idx_fkUserBalance (fkUser)
 );
+
+alter table tbl_card
+    add flagCard varchar(50) not null;
