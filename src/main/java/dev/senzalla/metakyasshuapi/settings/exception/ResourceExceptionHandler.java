@@ -71,6 +71,12 @@ public class ResourceExceptionHandler {
         return new ErrorDto(getMessage(ex), HttpStatus.UNAUTHORIZED);
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(ExcludeException.class)
+    public ErrorDto handle(ExcludeException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.UNAUTHORIZED);
+    }
+
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(UserAuthenticateException.class)
     public ErrorDto handle(UserAuthenticateException ex) {

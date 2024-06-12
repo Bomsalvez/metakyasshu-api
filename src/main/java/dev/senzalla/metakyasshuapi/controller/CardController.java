@@ -41,4 +41,10 @@ public class CardController {
         CardDto card = service.update(pkCard, cardForm);
         return ResponseEntity.ok(card);
     }
+
+    @DeleteMapping("/{pkCard}")
+    public ResponseEntity<Void> deleteCard(@PathVariable Long pkCard) {
+        service.delete(pkCard);
+        return ResponseEntity.noContent().build();
+    }
 }

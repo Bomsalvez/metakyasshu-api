@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CardService implements InterfaceService<CardDto, CardFilter, CardForm, CardDto> {
     private final CardUpdateService updateService;
+    private final CardDeleteService deleteService;
     private final CardFindService findService;
     private final CardAddService addService;
 
@@ -30,7 +31,7 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
 
     @Override
     public void delete(Long pk) {
-
+        deleteService.delete(pk);
     }
 
     @Override
