@@ -65,6 +65,12 @@ public class ResourceExceptionHandler {
         return new ErrorDto(getMessage(ex), ex.getCause().getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(FieldNotFoundException.class)
+    public ErrorDto handle(FieldNotFoundException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.BAD_REQUEST);
+    }
+
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UserDisabledException.class)
     public ErrorDto handle(UserDisabledException ex) {

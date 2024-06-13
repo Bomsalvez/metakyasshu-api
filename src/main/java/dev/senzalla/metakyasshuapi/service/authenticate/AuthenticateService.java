@@ -31,9 +31,7 @@ public class AuthenticateService {
             return new Token(token);
         } catch (DisabledException e) {
             throw new UserDisabledException("error.user-not-validate");
-        } catch (BadCredentialsException e) {
-            throw new UserDisabledException("error.user-login");
-        } catch (InternalAuthenticationServiceException e) {
+        } catch (BadCredentialsException | InternalAuthenticationServiceException e) {
             throw new UserDisabledException("error.user-login");
         }
     }

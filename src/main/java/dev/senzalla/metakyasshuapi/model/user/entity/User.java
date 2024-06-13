@@ -1,8 +1,8 @@
 package dev.senzalla.metakyasshuapi.model.user.entity;
 
 import dev.senzalla.metakyasshuapi.model.Collaborator;
-import dev.senzalla.metakyasshuapi.model.Expense;
 import dev.senzalla.metakyasshuapi.model.Goal;
+import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

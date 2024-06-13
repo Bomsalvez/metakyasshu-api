@@ -3,17 +3,16 @@ create database if not exists db_metakyasshu;
 use db_metakyasshu;
 
 drop table if exists tbl_user;
-create table if not exists tbl_user
-(
-    pkUser         int          not null auto_increment,
-    nameUser       varchar(255) not null,
-    emailUser      varchar(255) not null,
-    passwordUser   varchar(255) not null,
-    cpfUser        char(11)     not null,
-    imageUser      blob,
-    dateCreateUser date         not null,
-    keyUser        varchar(20)  not null,
-    confirmedUser  boolean      not null default false,
+create table if not exists tbl_user (
+    pkUser int not null auto_increment,
+    nameUser varchar(255) not null,
+    emailUser varchar(255) not null,
+    passwordUser varchar(255) not null,
+    cpfUser char(11) not null,
+    imageUser blob,
+    dateCreateUser date not null,
+    keyUser varchar(20) not null,
+    confirmedUser boolean not null default false,
 
 
     constraint pk_user primary key (pkUser),
@@ -27,10 +26,9 @@ create table if not exists tbl_user
 );
 
 drop table if exists tbl_category;
-create table if not exists tbl_category
-(
-    pkCategory   int                                                                                                                   not null auto_increment,
-    nameCategory varchar(255)                                                                                                          not null,
+create table if not exists tbl_category (
+    pkCategory int not null auto_increment,
+    nameCategory varchar(255) not null,
     typeCategory enum ('FOOD', 'HOUSING', 'TRANSPORTATION', 'HEALTH', 'EDUCATION', 'ENTERTAINMENT', 'UTILITIES', 'CLOTHING', 'OTHERS') not null,
 
     constraint pk_category primary key (pkCategory),
@@ -41,11 +39,10 @@ create table if not exists tbl_category
 );
 
 drop table if exists tbl_category_user;
-create table if not exists tbl_category_user
-(
+create table if not exists tbl_category_user (
     pkCategoryUser int not null auto_increment,
-    fkCategory     int not null,
-    fkUser         int not null,
+    fkCategory int not null,
+    fkUser int not null,
 
     constraint pk_category_user primary key (pkCategoryUser),
     constraint fk_category_category_user foreign key (fkCategory)
@@ -59,14 +56,13 @@ create table if not exists tbl_category_user
 );
 
 drop table if exists tbl_card;
-create table if not exists tbl_card
-(
-    pkCard       int                                      not null auto_increment,
-    nameCard     varchar(255),
-    numberCard   varchar(20)                              not null,
-    validateCard date                                     not null,
-    typeCard     enum ('CREDIT', 'DEBIT', 'DEBIT_CREDIT') not null,
-    fkUser       int                                      not null,
+create table if not exists tbl_card (
+    pkCard int not null auto_increment,
+    nameCard varchar(255),
+    numberCard varchar(20) not null,
+    validateCard date not null,
+    typeCard enum ('CREDIT', 'DEBIT', 'DEBIT_CREDIT') not null,
+    fkUser int not null,
 
     constraint pk_card primary key (pkCard),
     constraint uk_cardNumber unique (numberCard),
@@ -76,21 +72,20 @@ create table if not exists tbl_card
 );
 
 drop table if exists tbl_expense;
-create table if not exists tbl_expense
-(
-    pkExpense          int                                                    not null auto_increment,
-    nameExpense        varchar(255)                                           not null,
-    descriptionExpense varchar(255)                                           not null,
-    valueExpense       decimal(10, 2)                                         not null,
-    valuePayExpense    decimal(10, 2)                                         not null,
-    dateExpense        date                                                   not null,
-    dueDateExpense     date                                                   not null,
-    typeExpense        enum ('PIX', 'CARD', 'BILL', 'BOOKLET')                not null,
-    parcelExpense      int                                                    not null,
+create table if not exists tbl_expense (
+    pkExpense int not null auto_increment,
+    nameExpense varchar(255) not null,
+    descriptionExpense varchar(255) not null,
+    valueExpense decimal(10, 2) not null,
+    valuePayExpense decimal(10, 2) not null,
+    dateExpense date not null,
+    dueDateExpense date not null,
+    typeExpense enum ('PIX', 'CARD', 'BILL', 'BOOKLET') not null,
+    parcelExpense int,
     accessLevelExpense enum ('SPOUSE', 'RESIDENT', 'COLLABORATOR', 'PRIVATE') not null,
-    fkUser             int                                                    not null,
-    fkCategory         int                                                    not null,
-    fkCard             int                                                    not null,
+    fkUser int not null,
+    fkCategory int not null,
+    fkCard int,
 
     constraint pk_expense primary key (pkExpense),
     constraint fk_user_expense foreign key (fkUser) references tbl_user (pkUser),
@@ -104,16 +99,15 @@ create table if not exists tbl_expense
 );
 
 drop table if exists tbl_payment;
-create table if not exists tbl_payment
-(
-    pkPayment      int            not null auto_increment,
-    valuePayment   decimal(10, 2) not null,
-    datePayment    date           not null,
+create table if not exists tbl_payment (
+    pkPayment int not null auto_increment,
+    valuePayment decimal(10, 2) not null,
+    datePayment date not null,
     barCodePayment varchar(50),
-    parcelPayment  int,
-    pixPayment     varchar(50),
-    fkExpense      int            not null,
-    fkCard         int,
+    parcelPayment int,
+    pixPayment varchar(50),
+    fkExpense int not null,
+    fkCard int,
 
     constraint pk_payment primary key (pkPayment),
     constraint uk_expense_payment unique (fkExpense),
@@ -128,21 +122,20 @@ create table if not exists tbl_payment
 
 
 drop table if exists tbl_goal;
-create table if not exists tbl_goal
-(
-    pkGoal             int                                                    not null auto_increment,
-    nameGoal           varchar(255)                                           not null,
-    descriptionGoal    varchar(255)                                           not null,
-    valueGoal          decimal(10, 2)                                         not null,
-    valuePayGoal       decimal(10, 2)                                         not null,
-    coinGoal           varchar(50),
-    accessLevelGoal    enum ('SPOUSE', 'RESIDENT', 'COLLABORATOR', 'PRIVATE') not null,
-    availabilityGoal   boolean                                                not null,
+create table if not exists tbl_goal (
+    pkGoal int not null auto_increment,
+    nameGoal varchar(255) not null,
+    descriptionGoal varchar(255) not null,
+    valueGoal decimal(10, 2) not null,
+    valuePayGoal decimal(10, 2) not null,
+    coinGoal varchar(50),
+    accessLevelGoal enum ('SPOUSE', 'RESIDENT', 'COLLABORATOR', 'PRIVATE') not null,
+    availabilityGoal boolean not null,
     expirationDateGoal date,
-    dateCreatedGoal    date                                                   not null,
-    dateExecutionGoal  date,
-    fkCategory         int                                                    not null,
-    fkUser             int                                                    not null,
+    dateCreatedGoal date not null,
+    dateExecutionGoal date,
+    fkCategory int not null,
+    fkUser int not null,
 
     constraint pk_goal primary key (pkGoal),
     constraint fk_category_goal foreign key (fkCategory)
@@ -158,14 +151,13 @@ create table if not exists tbl_goal
 
 
 drop table if exists tbl_collaborator;
-create table if not exists tbl_collaborator
-(
-    pkCollaborator          int                                                    not null auto_increment,
+create table if not exists tbl_collaborator (
+    pkCollaborator int not null auto_increment,
     accessLevelCollaborator enum ('SPOUSE', 'RESIDENT', 'COLLABORATOR', 'PRIVATE') not null,
-    codeCollaborator        varchar(20)                                            not null,
-    acceptDateCollaborator  date,
-    fkUserCollaborator      int                                                    not null,
-    fkUserHost              int                                                    not null,
+    codeCollaborator varchar(20) not null,
+    acceptDateCollaborator date,
+    fkUserCollaborator int not null,
+    fkUserHost int not null,
 
     constraint pk_collaborator primary key (pkCollaborator),
     constraint fk_user_collaborator foreign key (fkUserCollaborator)
@@ -179,13 +171,12 @@ create table if not exists tbl_collaborator
 );
 
 drop table if exists tbl_invitation;
-create table if not exists tbl_invitation
-(
-    pkInvitation             int          not null auto_increment,
-    codeInvitation           varchar(255) not null,
-    sendDateInvitation       date         not null,
+create table if not exists tbl_invitation (
+    pkInvitation int not null auto_increment,
+    codeInvitation varchar(255) not null,
+    sendDateInvitation date not null,
     acceptanceDateInvitation date,
-    fkCollaborator           int          not null,
+    fkCollaborator int not null,
 
     constraint pk_invitation primary key (pkInvitation),
     constraint uk_code_invitation unique (codeInvitation),
@@ -199,16 +190,15 @@ create table if not exists tbl_invitation
 );
 
 drop table if exists tbl_participation;
-create table if not exists tbl_participation
-(
-    pkParticipation      int            not null auto_increment,
-    activeParticipation  boolean        not null,
-    valueParticipation   decimal(10, 2) not null,
-    percentParticipation float          not null,
-    paidParticipation    boolean        not null,
-    fkExpense            int,
-    fkGoal               int,
-    fkCollaborator       int            not null,
+create table if not exists tbl_participation (
+    pkParticipation int not null auto_increment,
+    activeParticipation boolean not null,
+    valueParticipation decimal(10, 2) not null,
+    percentParticipation float not null,
+    paidParticipation boolean not null,
+    fkExpense int,
+    fkGoal int,
+    fkCollaborator int not null,
 
     constraint pk_participation primary key (pkParticipation),
     constraint fk_collaborator_participation foreign key (fkCollaborator)
@@ -225,14 +215,13 @@ create table if not exists tbl_participation
 );
 
 drop table if exists tbl_balance;
-create table if not exists tbl_balance
-(
-    pkBalance          int            not null auto_increment,
-    descriptionBalance varchar(255)   not null,
-    valueBalance       decimal(10, 2) not null,
-    dateBalance        date           not null,
-    fkCategory         int            not null,
-    fkUser             int            not null,
+create table if not exists tbl_balance (
+    pkBalance int not null auto_increment,
+    descriptionBalance varchar(255) not null,
+    valueBalance decimal(10, 2) not null,
+    dateBalance date not null,
+    fkCategory int not null,
+    fkUser int not null,
 
     constraint pk_balance primary key (pkBalance),
     constraint fk_user_balance foreign key (fkUser)

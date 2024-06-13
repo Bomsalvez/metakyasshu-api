@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InterfaceService<D, T, F, S> {
 
-    void save(F form, String token);
+    D save(F form, String token);
 
     D update(Long pk, F form);
 

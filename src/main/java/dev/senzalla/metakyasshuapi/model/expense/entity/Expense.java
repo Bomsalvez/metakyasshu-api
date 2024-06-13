@@ -1,5 +1,7 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.expense.entity;
 
+import dev.senzalla.metakyasshuapi.model.Participation;
+import dev.senzalla.metakyasshuapi.model.Payment;
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
 import dev.senzalla.metakyasshuapi.model.category.entity.Category;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
@@ -56,7 +58,6 @@ public class Expense {
     @Column(name = "typeExpense", nullable = false)
     private TypeExpense typeExpense;
 
-    @NotNull
     @Column(name = "parcelExpense", nullable = false)
     private Long parcelExpense;
 
@@ -75,7 +76,6 @@ public class Expense {
     @JoinColumn(name = "fkCategory", nullable = false)
     private Category category;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fkCard", nullable = false)
     private Card card;

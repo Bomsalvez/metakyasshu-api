@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.model;
 
+import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

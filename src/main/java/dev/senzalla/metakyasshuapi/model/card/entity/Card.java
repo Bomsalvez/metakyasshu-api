@@ -1,6 +1,6 @@
 package dev.senzalla.metakyasshuapi.model.card.entity;
 
-import dev.senzalla.metakyasshuapi.model.Expense;
+import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import dev.senzalla.metakyasshuapi.model.types.TypeCard;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;

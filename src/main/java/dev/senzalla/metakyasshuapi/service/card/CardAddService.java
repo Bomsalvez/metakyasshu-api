@@ -1,10 +1,11 @@
 package dev.senzalla.metakyasshuapi.service.card;
 
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
-import dev.senzalla.metakyasshuapi.repository.CardRepository;
 import dev.senzalla.metakyasshuapi.model.card.mapper.CardMapper;
+import dev.senzalla.metakyasshuapi.model.card.module.CardDto;
 import dev.senzalla.metakyasshuapi.model.card.module.CardForm;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
+import dev.senzalla.metakyasshuapi.repository.CardRepository;
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import dev.senzalla.metakyasshuapi.settings.exception.DuplicateException;
@@ -24,13 +25,14 @@ class CardAddService {
     private final CardMapper mapper;
 
 
-    public void save(CardForm cardForm, String token) {
+    public CardDto save(CardForm cardForm, String token) {
         try {
             User user = userService.findByToken(token);
             Card card = mapper.toEntity(cardForm);
             CardToolService.checkFillingDateFieldCreditCase(card);
             card.setUser(user);
             repository.save(card);
+            return mapper.toDto(card);
         } catch (DataIntegrityViolationException e) {
             String error = messageDecode.extractMessage(e.getMessage());
             log.error("Error adding card: {}", error);

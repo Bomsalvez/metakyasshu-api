@@ -31,8 +31,25 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
         return card;
     }
 
+    @Deprecated(since = "1.0.0", forRemoval = true)
     @Override
     public CardDto toSummarized(Card card) {
-        return null;
+        throw new UnsupportedOperationException();
+    }
+
+    public Card toEntity(CardDto cardDto) {
+        Card card = new Card();
+        card.setNameCard(cardDto.getNameCard().replaceAll("\\s+", " "));
+        card.setNumberCard(cardDto.getNumberCard());
+        card.setValidateCard(cardDto.getValidateCard());
+        card.setTypeCard(cardDto.getTypeCard());
+        card.setFlagCard(cardDto.getFlagCard().replaceAll("\\s+", " "));
+        return card;
+    }
+
+    public Card toEntityExpense(CardDto cardDto) {
+        Card card = toEntity(cardDto);
+        card.setPkCard(cardDto.getPkCard());
+        return card;
     }
 }

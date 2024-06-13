@@ -20,8 +20,8 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     private final CardAddService addService;
 
     @Override
-    public void save(CardForm cardForm, String token) {
-        addService.save(cardForm, token);
+    public CardDto save(CardForm cardForm, String token) {
+      return   addService.save(cardForm, token);
     }
 
     @Override

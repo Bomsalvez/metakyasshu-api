@@ -1,6 +1,7 @@
 package dev.senzalla.metakyasshuapi.model;
 
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
+import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

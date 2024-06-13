@@ -30,7 +30,7 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
 
     @Override
     @Deprecated(since = "1.0", forRemoval = true)
-    public void save(UserForm userForm, String token) {
+    public UserDto save(UserForm userForm, String token) {
         throw new UnsupportedOperationException();
     }
 
