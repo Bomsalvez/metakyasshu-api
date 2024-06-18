@@ -8,6 +8,7 @@ import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilter, ExpenseForm, ExpenseSummarized> {
     private final ExpenseAddService addService;
+    private final ExpenseFindService findService;
 
     @Override
     public ExpenseDto save(ExpenseForm form, String token) {
@@ -38,12 +40,13 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
     }
 
     @Override
-    public Page<ExpenseSummarized> findAll(ExpenseFilter expenseFilter) {
-        return null;
+    public Page<ExpenseSummarized> findAllPage(ExpenseFilter expenseFilter, String token, Pageable pageable) {
+        return findService.findAllPage(expenseFilter, token, pageable);
     }
 
     @Override
-    public List<ExpenseSummarized> findAll(ExpenseFilter expenseFilter, String token) {
+    public List<ExpenseSummarized> findAllList(ExpenseFilter expenseFilter, String token) {
         return List.of();
     }
+
 }

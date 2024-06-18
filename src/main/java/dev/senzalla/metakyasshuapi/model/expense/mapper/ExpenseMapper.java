@@ -8,6 +8,7 @@ import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseForm;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,7 +51,11 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
     }
 
     @Override
-    public ExpenseSummarized toSummarized(Expense expense) {
+    public Page<ExpenseSummarized> toSummarized(Page<Expense> expense) {
+        return expense.map(this::toSummarized);
+    }
+
+    private ExpenseSummarized toSummarized(Expense expense) {
         ExpenseSummarized expenseSummarized = new ExpenseSummarized();
         expenseSummarized.setPkExpense(expense.getPkExpense());
         expenseSummarized.setNameExpense(expense.getNameExpense());

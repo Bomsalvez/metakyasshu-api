@@ -7,6 +7,7 @@ import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
 
     @Override
     public CardDto save(CardForm cardForm, String token) {
-      return   addService.save(cardForm, token);
+        return addService.save(cardForm, token);
     }
 
     @Override
@@ -40,13 +41,13 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     }
 
     @Override
-    public List<CardDto> findAll(CardFilter cardFilter, String token) {
+    public List<CardDto> findAllList(CardFilter cardFilter, String token) {
         return findService.findAll(cardFilter, token);
     }
 
+    @Deprecated(since = "1.0.0", forRemoval = true)
     @Override
-    @Deprecated(since = "1.0", forRemoval = true)
-    public Page<CardDto> findAll(CardFilter cardFilter) {
+    public Page<CardDto> findAllPage(CardFilter cardFilter, String token, Pageable pageable) {
         throw new UnsupportedOperationException();
     }
 }

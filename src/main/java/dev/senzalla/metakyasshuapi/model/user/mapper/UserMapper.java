@@ -4,6 +4,7 @@ import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +31,7 @@ public class UserMapper implements InterfaceMapper<UserDto, User, UserForm, Void
     }
 
     @Override
-    public Void toSummarized(User user) {
+    public Page<Void> toSummarized(Page<User> user) {
         return null;
     }
 }

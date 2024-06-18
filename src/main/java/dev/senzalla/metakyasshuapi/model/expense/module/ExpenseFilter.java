@@ -5,6 +5,8 @@ import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.types.Term;
 import dev.senzalla.metakyasshuapi.model.types.TypeExpense;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
+import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +25,10 @@ public class ExpenseFilter implements Serializable {
     private TypeExpense typeExpense;
     private AccessLevel accessLevel;
     private CategoryFormDto category;
+    @Null
+    private User user;
+    @Null
+    private LocalDate startDate;
+    @Null
+    private LocalDate endDate;
 }

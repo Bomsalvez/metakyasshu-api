@@ -5,6 +5,7 @@ import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.*;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -36,18 +37,6 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
 
     @Override
     @Deprecated(since = "1.0", forRemoval = true)
-    public Page<Void> findAll(UserFilter userFilter) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    @Deprecated(since = "1.0", forRemoval = true)
-    public List<Void> findAll(UserFilter userFilter, String token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    @Deprecated(since = "1.0", forRemoval = true)
     public UserDto update(Long pk, UserForm userForm) {
         throw new UnsupportedOperationException();
     }
@@ -62,5 +51,17 @@ abstract class EncapsulatedUserService implements InterfaceService<UserDto, User
     @Deprecated(since = "1.0", forRemoval = true)
     public void delete(Long pk) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated(since = "1.0", forRemoval = true)
+    public List<Void> findAllList(UserFilter userFilter, String token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated(since = "1.0", forRemoval = true)
+    public Page<Void> findAllPage(UserFilter userFilter, String token, Pageable pageable) {
+        return null;
     }
 }

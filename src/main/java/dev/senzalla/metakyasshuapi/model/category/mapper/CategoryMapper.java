@@ -3,6 +3,7 @@ package dev.senzalla.metakyasshuapi.model.category.mapper;
 import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
 import dev.senzalla.metakyasshuapi.model.category.entity.Category;
 import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category
 
     @Override
     @Deprecated(since = "1.0", forRemoval = true)
-    public Void toSummarized(Category category) {
+    public Page<Void> toSummarized(Page<Category> category) {
         return null;
     }
 

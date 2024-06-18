@@ -1,10 +1,12 @@
 package dev.senzalla.metakyasshuapi.model;
 
-public interface InterfaceMapper<Dto, Entity, Form, Summarized> {
+import org.springframework.data.domain.Page;
 
-    Dto toDto(Entity entity);
+public interface InterfaceMapper<D, E, F, S> {
 
-    Entity toEntity(Form form);
+    D toDto(E e);
 
-    Summarized toSummarized(Entity entity);
+    E toEntity(F f);
+
+    Page<S> toSummarized(Page<E> e);
 }

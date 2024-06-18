@@ -26,7 +26,7 @@ public class CardController {
 
     @GetMapping
     public ResponseEntity<List<CardDto>> getCards(@RequestHeader("Authorization") String token, @ModelAttribute CardFilter cardFilter) {
-        List<CardDto> cards = service.findAll(cardFilter, token);
+        List<CardDto> cards = service.findAllList(cardFilter, token);
         return ResponseEntity.ok(cards);
     }
 

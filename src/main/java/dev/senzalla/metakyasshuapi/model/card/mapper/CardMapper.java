@@ -4,6 +4,7 @@ import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
 import dev.senzalla.metakyasshuapi.model.card.module.CardDto;
 import dev.senzalla.metakyasshuapi.model.card.module.CardForm;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +34,7 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
 
     @Deprecated(since = "1.0.0", forRemoval = true)
     @Override
-    public CardDto toSummarized(Card card) {
+    public Page<CardDto> toSummarized(Page<Card> card) {
         throw new UnsupportedOperationException();
     }
 
