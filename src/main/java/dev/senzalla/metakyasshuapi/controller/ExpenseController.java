@@ -38,4 +38,10 @@ public class ExpenseController {
         Page<ExpenseSummarized> expenses = service.findAllPage(filter, token, pageable);
         return ResponseEntity.ok().body(expenses);
     }
+
+    @GetMapping("/{pk}")
+    public ResponseEntity<ExpenseDto> findExpense(@PathVariable Long pk) {
+        ExpenseDto dto = service.find(pk);
+        return ResponseEntity.ok().body(dto);
+    }
 }

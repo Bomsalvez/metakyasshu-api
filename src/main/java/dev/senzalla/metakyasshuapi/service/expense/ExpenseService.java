@@ -36,7 +36,7 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
 
     @Override
     public ExpenseDto find(Long pk) {
-        return null;
+        return findService.find(pk);
     }
 
     @Override
