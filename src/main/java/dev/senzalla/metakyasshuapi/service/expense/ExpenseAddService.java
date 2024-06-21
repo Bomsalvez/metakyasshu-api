@@ -47,12 +47,12 @@ class ExpenseAddService {
         boolean expenseInBooklet = expense.getTypeExpense().equals(TypeExpense.BOOKLET) && expense.getParcelExpense() == null;
 
         if (expenseInCard) {
-            String message = messageDecode.info("entity.card");
+            String message = messageDecode.getMessage("entity.card");
             throw new FieldNotFoundException("error.card",message);
         }
 
         if (expenseInBooklet) {
-            String message = messageDecode.info("type.booklet");
+            String message = messageDecode.getMessage("type.booklet");
             throw new FieldNotFoundException("error.type.booklet",message);
         }
     }

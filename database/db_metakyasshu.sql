@@ -29,7 +29,7 @@ drop table if exists tbl_category;
 create table if not exists tbl_category (
     pkCategory int not null auto_increment,
     nameCategory varchar(255) not null,
-    typeCategory enum ('FOOD', 'HOUSING', 'TRANSPORTATION', 'HEALTH', 'EDUCATION', 'ENTERTAINMENT', 'UTILITIES', 'CLOTHING', 'OTHERS') not null,
+    typeCategory varchar(15) not null,
 
     constraint pk_category primary key (pkCategory),
     constraint uk_name_category unique (nameCategory),

@@ -48,14 +48,14 @@ public class ResourceExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorDto handle(HttpMessageNotReadableException ex) {
-        String message = messageDecode.info("error.not-body");
+        String message = messageDecode.getMessage("error.not-body");
         return new ErrorDto(message, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ErrorDto handle(MaxUploadSizeExceededException ex) {
-        String message = messageDecode.info("error.not-body");
+        String message = messageDecode.getMessage("error.not-body");
         return new ErrorDto(message, HttpStatus.BAD_REQUEST);
     }
 
@@ -98,7 +98,7 @@ public class ResourceExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)
     public ErrorDto handle(NoHandlerFoundException ex) {
-        String message = messageDecode.info("error.endpoint");
+        String message = messageDecode.getMessage("error.endpoint");
         return new ErrorDto(message, HttpStatus.NOT_FOUND);
     }
 }

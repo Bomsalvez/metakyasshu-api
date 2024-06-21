@@ -47,7 +47,7 @@ class ExpenseFindService {
     public ExpenseDto find(Long pk) {
         Optional<Expense> optional = repository.findById(pk);
         if (optional.isEmpty()) {
-            String message = messageDecode.info("entity.expense");
+            String message = messageDecode.getMessage("entity.expense");
             throw new NotFoundException("error.not-found", message);
         }
         return mapper.toDto(optional.get());

@@ -40,12 +40,12 @@ public class SecurityWebApplication {
   private void exceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandling) {
     exceptionHandling
         .authenticationEntryPoint((request, response, e) -> {
-            String message = messageDecode.info("error.access");
+            String message = messageDecode.getMessage("error.access");
             ErrorDto errorDto = new ErrorDto(message, HttpStatus.UNAUTHORIZED);
             response.getWriter().write(errorDto.toString());
         })
         .accessDeniedHandler((request, response, e) -> {
-            String message = messageDecode.info("error.access");
+            String message = messageDecode.getMessage("error.access");
             ErrorDto errorDto = new ErrorDto(message, HttpStatus.FORBIDDEN);
             response.getWriter().write(errorDto.toString());
         });

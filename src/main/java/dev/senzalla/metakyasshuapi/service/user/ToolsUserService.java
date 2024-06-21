@@ -44,7 +44,7 @@ public class ToolsUserService {
 
     public void checkUserExists(Optional<User> user) {
         if (user.isEmpty()) {
-            String message = messageDecode.info("entity.user");
+            String message = messageDecode.getMessage("entity.user");
             throw new NotFoundException("error.not-found", message);
         }
     }

@@ -18,9 +18,9 @@ class CardDeleteService {
         Card card = findService.findCardEntity(pk);
         boolean hasUnpaidExpenses = card.getExpenses().stream().anyMatch(expense -> expense.getPayment() == null);
         if (hasUnpaidExpenses) {
-            String entityCard = messageDecode.info("entity.card");
-            String entityExpense = messageDecode.info("entity.expense");
-            throw new ExcludeException(messageDecode.info("error.exclude"), entityCard, entityExpense);
+            String entityCard = messageDecode.getMessage("entity.card");
+            String entityExpense = messageDecode.getMessage("entity.expense");
+            throw new ExcludeException(messageDecode.getMessage("error.exclude"), entityCard, entityExpense);
         }
     }
 }

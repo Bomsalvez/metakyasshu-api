@@ -22,7 +22,7 @@ public class MessageDecode {
         return words[0];
     }
 
-    public String info(String code) {
+    public String getMessage(String code) {
         return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
     }
 

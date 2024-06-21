@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.email;
 
+import dev.senzalla.metakyasshuapi.model.invitation.entity.Invitation;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -43,4 +44,12 @@ class SendEmailService {
         return variablesHtml;
     }
 
+    protected Map<String, Object> defineInviteVariables(Invitation invitation, String host) {
+        Map<String, Object> variablesHtml = new HashMap<>();
+        variablesHtml.put("emailGuest", invitation.getCollaborator().getUserCollaborator().getEmailUser());
+        variablesHtml.put("nameGuest", invitation.getCollaborator().getUserCollaborator().getNameUser());
+        variablesHtml.put("nameHost", invitation.getCollaborator().getUserHost().getNameUser());
+        variablesHtml.put("hashKey", host + invitation.getCodeInvitation());
+        return variablesHtml;
+    }
 }

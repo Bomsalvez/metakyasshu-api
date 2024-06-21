@@ -1,6 +1,6 @@
 package dev.senzalla.metakyasshuapi.model.user.entity;
 
-import dev.senzalla.metakyasshuapi.model.Collaborator;
+import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import dev.senzalla.metakyasshuapi.model.Goal;
 import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import jakarta.persistence.*;
@@ -12,6 +12,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
@@ -20,7 +22,10 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "tbl_user", schema = "db_metakyasshu")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "pkUser", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

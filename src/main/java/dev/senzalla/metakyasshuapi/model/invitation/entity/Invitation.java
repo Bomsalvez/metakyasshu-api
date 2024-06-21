@@ -1,5 +1,6 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.invitation.entity;
 
+import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,4 +36,8 @@ public class Invitation {
     @JoinColumn(name = "fkCollaborator", nullable = false)
     private Collaborator collaborator;
 
+    @PrePersist
+    public void prePersist() {
+        sendDateInvitation = LocalDate.now();
+    }
 }
