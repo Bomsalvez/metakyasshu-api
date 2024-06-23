@@ -22,6 +22,6 @@ class InvitationFindService {
     public Page<InvitationSummarized> getInvitations(String token, Pageable pageable, boolean sent) {
         User user = userService.findByToken(token);
         Page<Invitation> invitations = repository.findInvite(user, sent, pageable);
-        return invitations.map(mapper::toDto);
+        return mapper.toSummarized(invitations);
     }
 }

@@ -34,6 +34,6 @@ public class InvitationMapper implements InterfaceMapper<InvitationSummarized, I
 
     @Override
     public Page<InvitationSummarized> toSummarized(Page<Invitation> e) {
-        return null;
+        return e.map(this::toDto);
     }
 }
