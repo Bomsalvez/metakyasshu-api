@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface InvitationRepository extends JpaRepository<Invitation, Long> {
     @Query("SELECT i FROM Invitation i " +
             "WHERE :sent = true AND i.collaborator.userHost = :user " +
-            "OR :sent = false AND i.collaborator.userCollaborator = :user")
+            "OR :sent = false AND i.collaborator.userCollaborator = :user " +
+            "AND i.acceptanceDateInvitation IS NULL")
     Page<Invitation> findInvite(User user, boolean sent, Pageable pageable);
 }

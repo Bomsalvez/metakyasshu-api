@@ -2,6 +2,8 @@ package dev.senzalla.metakyasshuapi.service.invitation;
 
 import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import dev.senzalla.metakyasshuapi.model.invitation.entity.Invitation;
+import dev.senzalla.metakyasshuapi.model.invitation.mapper.InvitationMapper;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.repository.InvitationRepository;
 import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
@@ -11,8 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 class InvitationSendService {
@@ -20,13 +20,15 @@ class InvitationSendService {
     private final ToolsUserService toolsUserService;
     private final InvitationRepository repository;
     private final EmailService emailService;
+    private final InvitationMapper mapper;
 
-    public void sendInvitation(InvitationForm invitationForm, String token) {
+    public InvitationSummarized sendInvitation(InvitationForm invitationForm, String token) {
         Collaborator collaborator = collaboratorService.createCollaborator(invitationForm, token);
         Invitation invitation = new Invitation();
         invitation.setCollaborator(collaborator);
         invitation.setCodeInvitation(toolsUserService.createHashCode());
         repository.save(invitation);
         emailService.sendEmailInviteCollaborator(invitation);
+        return mapper.toDto(invitation);
     }
 }

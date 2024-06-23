@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
-public class InvitationDto implements Serializable {
+public class InvitationSummarized implements Serializable {
     private Long pkInvitation;
     private LocalDate sendDateInvitation;
     private UserSummarized userHost;

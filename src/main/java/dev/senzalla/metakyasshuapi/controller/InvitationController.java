@@ -1,6 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
-import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.service.invitation.InvitationService;
 import lombok.AllArgsConstructor;
@@ -20,16 +20,16 @@ public class InvitationController {
 
     @PostMapping
     public ResponseEntity<Void> sendInvitation(@RequestBody @Validated InvitationForm invitationForm, @RequestHeader("Authorization") String token) {
-        service.sendInvitation(invitationForm, token);
+        service.save(invitationForm, token);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<Page<InvitationDto>> listInvitations(
+    public ResponseEntity<Page<InvitationSummarized>> listInvitations(
             @RequestHeader("Authorization") String token,
             @SortDefault("sendDateInvitation") Pageable pageable,
             @RequestParam(defaultValue = "false") boolean sent) {
-        Page<InvitationDto> invitations = service.getInvitations(token, pageable, sent);
+        Page<InvitationSummarized> invitations = service.findAllPage(sent, token, pageable);
         return ResponseEntity.ok().body(invitations);
     }
 }

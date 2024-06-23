@@ -2,8 +2,7 @@ package dev.senzalla.metakyasshuapi.model.invitation.mapper;
 
 import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
 import dev.senzalla.metakyasshuapi.model.invitation.entity.Invitation;
-import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
-import dev.senzalla.metakyasshuapi.model.user.entity.User;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.user.mapper.UserMapper;
 import dev.senzalla.metakyasshuapi.model.user.module.UserSummarized;
 import lombok.AllArgsConstructor;
@@ -13,19 +12,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class InvitationMapper implements InterfaceMapper<InvitationDto, Invitation, Void, InvitationDto> {
+public class InvitationMapper implements InterfaceMapper<InvitationSummarized, Invitation, Void, InvitationSummarized> {
     private final UserMapper userMapper;
 
     @Override
-    public InvitationDto toDto(Invitation invitation) {
+    public InvitationSummarized toDto(Invitation invitation) {
         UserSummarized userHost = userMapper.toSummarized(invitation.getCollaborator().getUserHost());
         UserSummarized userCollaborator = userMapper.toSummarized(invitation.getCollaborator().getUserCollaborator());
-        InvitationDto invitationDto = new InvitationDto();
-        invitationDto.setPkInvitation(invitation.getPkInvitation());
-        invitationDto.setSendDateInvitation(invitation.getSendDateInvitation());
-        invitationDto.setUserHost(userHost);
-        invitationDto.setUserCollaborator(userCollaborator);
-        return invitationDto;
+        InvitationSummarized invitationSummarized = new InvitationSummarized();
+        invitationSummarized.setPkInvitation(invitation.getPkInvitation());
+        invitationSummarized.setSendDateInvitation(invitation.getSendDateInvitation());
+        invitationSummarized.setUserHost(userHost);
+        invitationSummarized.setUserCollaborator(userCollaborator);
+        return invitationSummarized;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class InvitationMapper implements InterfaceMapper<InvitationDto, Invitati
     }
 
     @Override
-    public Page<InvitationDto> toSummarized(Page<Invitation> e) {
+    public Page<InvitationSummarized> toSummarized(Page<Invitation> e) {
         return null;
     }
 }
