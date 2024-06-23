@@ -4,6 +4,7 @@ import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.model.user.module.UserDto;
 import dev.senzalla.metakyasshuapi.model.user.module.UserForm;
+import dev.senzalla.metakyasshuapi.model.user.module.UserSummarized;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,17 @@ public class UserMapper implements InterfaceMapper<UserDto, User, UserForm, Void
         return user;
     }
 
+    @Deprecated(since = "1.0.0", forRemoval = true)
     @Override
     public Page<Void> toSummarized(Page<User> user) {
-        return null;
+        throw new UnsupportedOperationException();
+    }
+
+    public UserSummarized toSummarized(User user) {
+        UserSummarized userSummarized = new UserSummarized();
+        userSummarized.setPkUser(user.getPkUser());
+        userSummarized.setNameUser(user.getNameUser());
+        userSummarized.setEmailUser(user.getEmailUser());
+        return userSummarized;
     }
 }
