@@ -49,7 +49,7 @@ class SendEmailService {
         variablesHtml.put("emailGuest", invitation.getCollaborator().getUserCollaborator().getEmailUser());
         variablesHtml.put("nameGuest", invitation.getCollaborator().getUserCollaborator().getNameUser());
         variablesHtml.put("nameHost", invitation.getCollaborator().getUserHost().getNameUser());
-        variablesHtml.put("hashKey", host + invitation.getCodeInvitation());
+        variablesHtml.put("hashKey", host + invitation.getPkInvitation());
         return variablesHtml;
     }
 }

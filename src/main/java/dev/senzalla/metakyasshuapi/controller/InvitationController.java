@@ -39,4 +39,10 @@ public class InvitationController {
         InvitationDto invitation = service.find(pk);
         return ResponseEntity.ok().body(invitation);
     }
+
+    @PatchMapping("/{pk}")
+    public ResponseEntity<InvitationDto> acceptInvitation(@PathVariable Long pk) {
+        InvitationDto invitation = service.accept(pk);
+        return ResponseEntity.ok().body(invitation);
+    }
 }

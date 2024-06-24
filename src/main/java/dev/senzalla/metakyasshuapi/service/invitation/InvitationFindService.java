@@ -32,11 +32,21 @@ class InvitationFindService {
     }
 
     public InvitationDto findInvitation(Long pk) {
+        Optional<Invitation> invitation = findInvitationEntity(pk);
+        checkInvitation(invitation);
+        return mapper.toDto(invitation.get());
+    }
+
+    public Optional<Invitation> findInvitationEntity(Long pk) {
         Optional<Invitation> invitation = repository.findById(pk);
+        checkInvitation(invitation);
+        return invitation;
+    }
+
+    private void checkInvitation(Optional<Invitation> invitation) {
         if (invitation.isEmpty()) {
             String message = messageDecode.getMessage("entity.invite");
             throw new NotFoundException("error.not-found", message);
         }
-        return mapper.toDto(invitation.get());
     }
 }

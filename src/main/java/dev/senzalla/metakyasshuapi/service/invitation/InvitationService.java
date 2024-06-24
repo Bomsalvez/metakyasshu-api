@@ -14,9 +14,10 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class InvitationService implements InterfaceService<InvitationDto, Boolean,InvitationForm, InvitationSummarized> {
+public class InvitationService implements InterfaceService<InvitationDto, Boolean, InvitationForm, InvitationSummarized> {
     private final InvitationSendService sendService;
     private final InvitationFindService findService;
+    private final InvitationAcceptService acceptService;
 
 
     @Override
@@ -47,5 +48,9 @@ public class InvitationService implements InterfaceService<InvitationDto, Boolea
     @Override
     public List<InvitationSummarized> findAllList(Boolean unused, String token) {
         return List.of();
+    }
+
+    public InvitationDto accept(Long pk) {
+        return acceptService.acceptInvitation(pk);
     }
 }
