@@ -3,7 +3,7 @@ package dev.senzalla.metakyasshuapi.service.invitation;
 import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import dev.senzalla.metakyasshuapi.model.invitation.entity.Invitation;
 import dev.senzalla.metakyasshuapi.model.invitation.mapper.InvitationMapper;
-import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.repository.InvitationRepository;
 import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
@@ -22,7 +22,7 @@ class InvitationSendService {
     private final EmailService emailService;
     private final InvitationMapper mapper;
 
-    public InvitationSummarized sendInvitation(InvitationForm invitationForm, String token) {
+    public InvitationDto sendInvitation(InvitationForm invitationForm, String token) {
         Collaborator collaborator = collaboratorService.createCollaborator(invitationForm, token);
         Invitation invitation = new Invitation();
         invitation.setCollaborator(collaborator);

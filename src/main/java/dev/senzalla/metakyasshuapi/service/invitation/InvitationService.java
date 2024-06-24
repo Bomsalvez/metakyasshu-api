@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.invitation;
 
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
@@ -13,18 +14,18 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class InvitationService implements InterfaceService<InvitationSummarized, Boolean,InvitationForm, InvitationSummarized> {
+public class InvitationService implements InterfaceService<InvitationDto, Boolean,InvitationForm, InvitationSummarized> {
     private final InvitationSendService sendService;
     private final InvitationFindService findService;
 
 
     @Override
-    public InvitationSummarized save(InvitationForm form, String token) {
+    public InvitationDto save(InvitationForm form, String token) {
         return sendService.sendInvitation(form, token);
     }
 
     @Override
-    public InvitationSummarized update(Long pk, InvitationForm form) {
+    public InvitationDto update(Long pk, InvitationForm form) {
         return null;
     }
 
@@ -34,8 +35,8 @@ public class InvitationService implements InterfaceService<InvitationSummarized,
     }
 
     @Override
-    public InvitationSummarized find(Long pk) {
-        return null;
+    public InvitationDto find(Long pk) {
+        return findService.findInvitation(pk);
     }
 
     @Override

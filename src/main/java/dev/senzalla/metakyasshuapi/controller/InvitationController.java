@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.service.invitation.InvitationService;
@@ -31,5 +32,11 @@ public class InvitationController {
             @RequestParam(defaultValue = "false") boolean sent) {
         Page<InvitationSummarized> invitations = service.findAllPage(sent, token, pageable);
         return ResponseEntity.ok().body(invitations);
+    }
+
+    @GetMapping("/{pk}")
+    public ResponseEntity<InvitationDto> findInvitation(@PathVariable Long pk) {
+        InvitationDto invitation = service.find(pk);
+        return ResponseEntity.ok().body(invitation);
     }
 }

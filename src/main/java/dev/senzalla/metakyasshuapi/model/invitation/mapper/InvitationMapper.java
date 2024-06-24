@@ -1,7 +1,10 @@
 package dev.senzalla.metakyasshuapi.model.invitation.mapper;
 
 import dev.senzalla.metakyasshuapi.model.InterfaceMapper;
+import dev.senzalla.metakyasshuapi.model.collaborator.mapper.CollaboratorMapper;
+import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorDto;
 import dev.senzalla.metakyasshuapi.model.invitation.entity.Invitation;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.user.mapper.UserMapper;
 import dev.senzalla.metakyasshuapi.model.user.module.UserSummarized;
@@ -12,20 +15,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class InvitationMapper implements InterfaceMapper<InvitationSummarized, Invitation, Void, InvitationSummarized> {
+public class InvitationMapper implements InterfaceMapper<InvitationDto, Invitation, Void, InvitationSummarized> {
     private final UserMapper userMapper;
+    private final CollaboratorMapper collaboratorMapper;
 
     @Override
-    public InvitationSummarized toDto(Invitation invitation) {
-        UserSummarized userHost = userMapper.toSummarized(invitation.getCollaborator().getUserHost());
-        UserSummarized userCollaborator = userMapper.toSummarized(invitation.getCollaborator().getUserCollaborator());
-        InvitationSummarized invitationSummarized = new InvitationSummarized();
-        invitationSummarized.setPkInvitation(invitation.getPkInvitation());
-        invitationSummarized.setSendDateInvitation(invitation.getSendDateInvitation());
-        invitationSummarized.setUserHost(userHost);
-        invitationSummarized.setUserCollaborator(userCollaborator);
-        return invitationSummarized;
+    public InvitationDto toDto(Invitation invitation) {
+        CollaboratorDto collaborator = collaboratorMapper.toDto(invitation.getCollaborator());
+        InvitationDto invitationDto = new InvitationDto();
+        invitationDto.setPkInvitation(invitation.getPkInvitation());
+        invitationDto.setSendDateInvitation(invitation.getSendDateInvitation());
+        invitationDto.setCollaborator(collaborator);
+        return invitationDto;
     }
+
 
     @Override
     public Invitation toEntity(Void unused) {
@@ -34,6 +37,17 @@ public class InvitationMapper implements InterfaceMapper<InvitationSummarized, I
 
     @Override
     public Page<InvitationSummarized> toSummarized(Page<Invitation> e) {
-        return e.map(this::toDto);
+        return e.map(this::toSummarized);
+    }
+
+    private InvitationSummarized toSummarized(Invitation invitation) {
+        UserSummarized userHost = userMapper.toSummarized(invitation.getCollaborator().getUserHost());
+        UserSummarized userCollaborator = userMapper.toSummarized(invitation.getCollaborator().getUserCollaborator());
+        InvitationSummarized invitationSummarized = new InvitationSummarized();
+        invitationSummarized.setPkInvitation(invitation.getPkInvitation());
+        invitationSummarized.setSendDateInvitation(invitation.getSendDateInvitation());
+        invitationSummarized.setUserHost(userHost);
+        invitationSummarized.setUserCollaborator(userCollaborator);
+        return invitationSummarized;
     }
 }
