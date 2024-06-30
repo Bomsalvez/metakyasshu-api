@@ -33,11 +33,16 @@ class CollaboratorFindService {
     }
 
     public CollaboratorDto getCollaborator(Long pk) {
+        Collaborator collaborator = getCollaboratorEntity(pk);
+        return mapper.toDto(collaborator);
+    }
+
+    public Collaborator getCollaboratorEntity(Long pk) {
         Optional<Collaborator> collaborator = repository.findById(pk);
         if (collaborator.isEmpty()) {
             String message = messageDecode.getMessage("entity.collaborator");
             throw new NotFoundException("error.not-found", message);
         }
-        return mapper.toDto(collaborator.get());
+        return collaborator.get();
     }
 }

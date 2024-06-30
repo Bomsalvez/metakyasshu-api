@@ -5,6 +5,7 @@ import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorDto;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
+import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class CollaboratorService implements InterfaceService<CollaboratorDto,CollaboratorFilter,Void, CollaboratorSummarized> {
+public class CollaboratorService implements InterfaceService<CollaboratorDto,CollaboratorFilter, AccessLevel, CollaboratorSummarized> {
     private final CollaboratorCreateService createService;
     private final CollaboratorFindService findService;
+    private final CollaboratorUpdateService updateService;
 
     public Collaborator save(InvitationForm invitationForm, String token) {
         return createService.createCollaborator(invitationForm, token);
@@ -36,13 +38,13 @@ public class CollaboratorService implements InterfaceService<CollaboratorDto,Col
 
     @Override
     @Deprecated(since = "1.0.0", forRemoval = true)
-    public CollaboratorDto save(Void form, String token) {
+    public CollaboratorDto save(AccessLevel form, String token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public CollaboratorDto update(Long pk, Void form) {
-        return null;
+    public CollaboratorDto update(Long pk, AccessLevel form) {
+        return updateService.updateCollaborator(pk, form);
     }
 
     @Override

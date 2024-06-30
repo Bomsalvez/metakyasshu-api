@@ -3,6 +3,7 @@ package dev.senzalla.metakyasshuapi.controller;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorDto;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
+import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class CollaboratorController {
     @GetMapping("/{pk}")
     public ResponseEntity<CollaboratorDto> getCollaborator(@PathVariable Long pk) {
         CollaboratorDto collaborator = service.find(pk);
+        return ResponseEntity.ok().body(collaborator);
+    }
+
+    @PatchMapping("/{pk}")
+    public ResponseEntity<CollaboratorDto> updateCollaborator(@PathVariable Long pk, @RequestParam AccessLevel accessLevel) {
+        CollaboratorDto collaborator = service.update(pk, accessLevel);
         return ResponseEntity.ok().body(collaborator);
     }
 }
