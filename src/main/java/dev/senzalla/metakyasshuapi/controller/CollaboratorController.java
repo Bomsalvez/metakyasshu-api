@@ -1,0 +1,28 @@
+package dev.senzalla.metakyasshuapi.controller;
+
+import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
+import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
+import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/collaborator")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class CollaboratorController {
+    private final CollaboratorService service;
+
+    @GetMapping
+    public ResponseEntity<Page<CollaboratorSummarized>> listCollaborator(
+            @ModelAttribute("CollaboratorFilter") CollaboratorFilter filter,
+            @RequestHeader(value = "Authorization") String token,
+            @SortDefault Pageable pageable) {
+        Page<CollaboratorSummarized> collaborator = service.listCollaborator(filter, token, pageable);
+        return ResponseEntity.ok().body(collaborator);
+    }
+}

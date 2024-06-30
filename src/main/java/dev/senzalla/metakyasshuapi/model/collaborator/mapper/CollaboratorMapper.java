@@ -48,4 +48,8 @@ public class CollaboratorMapper implements InterfaceMapper<CollaboratorDto, Coll
         collaboratorSummarized.setUserHost(userHost);
         return collaboratorSummarized;
     }
+
+    public Page<CollaboratorDto> toDto(Page<Collaborator> collaborator) {
+        return collaborator.map(this::toDto);
+    }
 }
