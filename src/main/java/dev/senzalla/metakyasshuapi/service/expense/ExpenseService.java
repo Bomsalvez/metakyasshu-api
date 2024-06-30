@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilter, ExpenseForm, ExpenseSummarized> {
@@ -43,10 +41,4 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
     public Page<ExpenseSummarized> findAllPage(ExpenseFilter expenseFilter, String token, Pageable pageable) {
         return findService.findAllPage(expenseFilter, token, pageable);
     }
-
-    @Override
-    public List<ExpenseSummarized> findAllList(ExpenseFilter expenseFilter, String token) {
-        return List.of();
-    }
-
 }

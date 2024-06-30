@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.controller;
 
+import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorDto;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
 import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
@@ -22,7 +23,13 @@ public class CollaboratorController {
             @ModelAttribute("CollaboratorFilter") CollaboratorFilter filter,
             @RequestHeader(value = "Authorization") String token,
             @SortDefault Pageable pageable) {
-        Page<CollaboratorSummarized> collaborator = service.listCollaborator(filter, token, pageable);
+        Page<CollaboratorSummarized> collaborator = service.findAllPage(filter, token, pageable);
+        return ResponseEntity.ok().body(collaborator);
+    }
+
+    @GetMapping("/{pk}")
+    public ResponseEntity<CollaboratorDto> getCollaborator(@PathVariable Long pk) {
+        CollaboratorDto collaborator = service.find(pk);
         return ResponseEntity.ok().body(collaborator);
     }
 }

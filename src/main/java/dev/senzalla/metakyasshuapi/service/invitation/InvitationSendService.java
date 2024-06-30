@@ -23,7 +23,7 @@ class InvitationSendService {
     private final InvitationMapper mapper;
 
     public InvitationDto sendInvitation(InvitationForm invitationForm, String token) {
-        Collaborator collaborator = collaboratorService.createCollaborator(invitationForm, token);
+        Collaborator collaborator = collaboratorService.save(invitationForm, token);
         Invitation invitation = new Invitation();
         invitation.setCollaborator(collaborator);
         invitation.setCodeInvitation(toolsUserService.createHashCode());

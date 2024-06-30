@@ -22,4 +22,7 @@ public class CollaboratorSummarized implements Serializable {
     private UserSummarized userCollaborator;
     @NotNull
     private UserSummarized userHost;
+    @NotNull
+    private Long pkCollaborator;
+
 }

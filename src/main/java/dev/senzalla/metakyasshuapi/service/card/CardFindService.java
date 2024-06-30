@@ -10,9 +10,10 @@ import dev.senzalla.metakyasshuapi.service.user.UserService;
 import dev.senzalla.metakyasshuapi.settings.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,12 +22,6 @@ class CardFindService {
     private final CardRepository repository;
     private final UserService userService;
     private final CardMapper mapper;
-
-    public List<CardDto> findAll(CardFilter cardFilter, String token) {
-        User user = userService.findByToken(token);
-        List<Card> cards = repository.findAllByUser(user, cardFilter);
-        return cards.stream().map(mapper::toDto).toList();
-    }
 
     public Card findCardEntity(Long pk) {
         Optional<Card> card = repository.findById(pk);
@@ -39,5 +34,11 @@ class CardFindService {
     public CardDto find(Long pk) {
         Card card = findCardEntity(pk);
         return mapper.toDto(card);
+    }
+
+    public Page<CardDto> findAll(CardFilter cardFilter, String token, Pageable pageable) {
+        User user = userService.findByToken(token);
+        Page<Card> cards = repository.findAllByUser(user, cardFilter, pageable);
+        return mapper.toSummarized(cards);
     }
 }

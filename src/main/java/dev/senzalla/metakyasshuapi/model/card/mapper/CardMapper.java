@@ -32,10 +32,9 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
         return card;
     }
 
-    @Deprecated(since = "1.0.0", forRemoval = true)
     @Override
     public Page<CardDto> toSummarized(Page<Card> card) {
-        throw new UnsupportedOperationException();
+       return card.map(this::toDto);
     }
 
     public Card toEntity(CardDto cardDto) {

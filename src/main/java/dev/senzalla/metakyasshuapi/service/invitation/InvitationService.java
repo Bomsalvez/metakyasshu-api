@@ -1,16 +1,14 @@
 package dev.senzalla.metakyasshuapi.service.invitation;
 
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationDto;
-import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
+import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationSummarized;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -43,11 +41,6 @@ public class InvitationService implements InterfaceService<InvitationDto, Boolea
     @Override
     public Page<InvitationSummarized> findAllPage(Boolean sent, String token, Pageable pageable) {
         return findService.getInvitations(token, pageable, sent);
-    }
-
-    @Override
-    public List<InvitationSummarized> findAllList(Boolean unused, String token) {
-        return List.of();
     }
 
     public InvitationDto accept(Long pk) {

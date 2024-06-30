@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CardService implements InterfaceService<CardDto, CardFilter, CardForm, CardDto> {
@@ -41,13 +39,7 @@ public class CardService implements InterfaceService<CardDto, CardFilter, CardFo
     }
 
     @Override
-    public List<CardDto> findAllList(CardFilter cardFilter, String token) {
-        return findService.findAll(cardFilter, token);
-    }
-
-    @Deprecated(since = "1.0.0", forRemoval = true)
-    @Override
     public Page<CardDto> findAllPage(CardFilter cardFilter, String token, Pageable pageable) {
-        throw new UnsupportedOperationException();
+        return findService.findAll(cardFilter, token, pageable);
     }
 }
