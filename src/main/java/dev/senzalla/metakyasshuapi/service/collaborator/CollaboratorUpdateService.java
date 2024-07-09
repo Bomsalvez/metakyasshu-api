@@ -26,4 +26,9 @@ class CollaboratorUpdateService {
         repository.save(collaborator);
         return mapper.toDto(collaborator);
     }
+
+    public void deleteCollaborator(Long pk) {
+        Collaborator collaborator = findService.getCollaboratorEntity(pk);
+        repository.delete(collaborator);
+    }
 }

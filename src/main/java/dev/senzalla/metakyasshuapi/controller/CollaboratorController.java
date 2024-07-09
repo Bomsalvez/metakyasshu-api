@@ -39,4 +39,10 @@ public class CollaboratorController {
         CollaboratorDto collaborator = service.update(pk, accessLevel);
         return ResponseEntity.ok().body(collaborator);
     }
+
+    @DeleteMapping("/{pk}")
+    public ResponseEntity<Void> deleteCollaborator(@PathVariable Long pk) {
+        service.delete(pk);
+        return ResponseEntity.noContent().build();
+    }
 }

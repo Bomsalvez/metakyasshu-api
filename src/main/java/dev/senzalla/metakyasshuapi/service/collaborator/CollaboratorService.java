@@ -49,6 +49,6 @@ public class CollaboratorService implements InterfaceService<CollaboratorDto,Col
 
     @Override
     public void delete(Long pk) {
-
+        updateService.deleteCollaborator(pk);
     }
 }
