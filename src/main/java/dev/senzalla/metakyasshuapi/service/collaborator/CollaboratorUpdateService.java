@@ -29,6 +29,7 @@ class CollaboratorUpdateService {
 
     public void deleteCollaborator(Long pk) {
         Collaborator collaborator = findService.getCollaboratorEntity(pk);
+        // TODO: distribuir despesas em aberto
         repository.delete(collaborator);
     }
 }
