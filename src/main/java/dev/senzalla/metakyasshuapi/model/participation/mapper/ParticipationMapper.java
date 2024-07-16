@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ParticipationMapper implements InterfaceMapper<ParticipationDto, Participation, Void, Void> {
@@ -34,5 +36,9 @@ public class ParticipationMapper implements InterfaceMapper<ParticipationDto, Pa
     @Override
     public Page<Void> toSummarized(Page<Participation> e) {
         throw new UnsupportedOperationException();
+    }
+
+    public Set<ParticipationDto> toDto(Set<Participation> participations) {
+        return participations.stream().map(this::toDto).collect(java.util.stream.Collectors.toSet());
     }
 }
