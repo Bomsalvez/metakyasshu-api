@@ -1,5 +1,6 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.participation.entity;
 
+import dev.senzalla.metakyasshuapi.model.Goal;
 import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import jakarta.persistence.*;

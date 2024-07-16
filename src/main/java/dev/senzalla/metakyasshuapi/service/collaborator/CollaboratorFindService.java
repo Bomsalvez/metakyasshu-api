@@ -5,6 +5,7 @@ import dev.senzalla.metakyasshuapi.model.collaborator.mapper.CollaboratorMapper;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorDto;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
+import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.repository.CollaboratorRepository;
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,9 @@ class CollaboratorFindService {
             throw new NotFoundException("error.not-found", message);
         }
         return collaborator.get();
+    }
+
+    public List<Collaborator> findCollaborator(User user, AccessLevel accessLevel) {
+        return repository.findAllByUserHostAndAccessLevel(user, accessLevel);
     }
 }

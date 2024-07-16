@@ -2,6 +2,7 @@ package dev.senzalla.metakyasshuapi.repository;
 
 import dev.senzalla.metakyasshuapi.model.collaborator.entity.Collaborator;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
+import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,4 +24,9 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
             "AND (:#{#filter.hasCollaborator} = false AND c.userHost = :user) " +
             "OR (:#{#filter.hasCollaborator} = true AND c.userCollaborator = :user) ")
     Page<Collaborator> findAllByUser(User user, CollaboratorFilter filter, Pageable pageable);
+
+    @Query("SELECT c FROM Collaborator c " +
+            "WHERE c.userHost = :user " +
+            "AND c.accessLevel = :accessLevel")
+    List<Collaborator> findAllByUserHostAndAccessLevel(User user, AccessLevel accessLevel);
 }

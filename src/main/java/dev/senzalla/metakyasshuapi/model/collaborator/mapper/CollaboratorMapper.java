@@ -41,7 +41,7 @@ public class CollaboratorMapper implements InterfaceMapper<CollaboratorDto, Coll
         return collaborators.map(this::toSummarized);
     }
 
-    private CollaboratorSummarized toSummarized(Collaborator collaborator) {
+    public CollaboratorSummarized toSummarized(Collaborator collaborator) {
         UserSummarized userHost = userMapper.toSummarized(collaborator.getUserHost());
         UserSummarized userCollaborator = userMapper.toSummarized(collaborator.getUserCollaborator());
         CollaboratorSummarized collaboratorSummarized = new CollaboratorSummarized();

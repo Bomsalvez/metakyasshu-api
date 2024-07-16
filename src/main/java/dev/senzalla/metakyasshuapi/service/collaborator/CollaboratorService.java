@@ -6,12 +6,15 @@ import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorFilter;
 import dev.senzalla.metakyasshuapi.model.collaborator.module.CollaboratorSummarized;
 import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -50,5 +53,9 @@ public class CollaboratorService implements InterfaceService<CollaboratorDto,Col
     @Override
     public void delete(Long pk) {
         updateService.deleteCollaborator(pk);
+    }
+
+    public List<Collaborator> findCollaborator(User user, AccessLevel accessLevel) {
+        return findService.findCollaborator(user, accessLevel);
     }
 }

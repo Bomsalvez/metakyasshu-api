@@ -1,6 +1,6 @@
 package dev.senzalla.metakyasshuapi.model.expense.entity;
 
-import dev.senzalla.metakyasshuapi.model.Participation;
+import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.Payment;
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
 import dev.senzalla.metakyasshuapi.model.category.entity.Category;
