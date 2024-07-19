@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.model.collaborator.entity;
 
+import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,4 +50,6 @@ public class Collaborator implements Serializable {
     @JoinColumn(name = "fkUserHost", nullable = false)
     private User userHost;
 
+    @OneToMany(mappedBy = "collaborator", fetch = FetchType.LAZY)
+    private List<Participation> participations;
 }

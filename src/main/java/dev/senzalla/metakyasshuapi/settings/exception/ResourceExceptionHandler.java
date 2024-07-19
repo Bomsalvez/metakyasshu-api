@@ -95,6 +95,12 @@ public class ResourceExceptionHandler {
         return new ErrorDto(getMessage(ex), HttpStatus.CONFLICT);
     }
 
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    @ExceptionHandler(ParticipationException.class)
+    public ErrorDto handle(ParticipationException ex) {
+        return new ErrorDto(getMessage(ex), HttpStatus.PRECONDITION_FAILED);
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)
     public ErrorDto handle(NoHandlerFoundException ex) {

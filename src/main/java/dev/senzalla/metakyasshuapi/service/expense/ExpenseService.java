@@ -4,6 +4,7 @@ import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseFilter;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseForm;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
+import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilter, ExpenseForm, ExpenseSummarized> {
-    private final ExpenseAddService addService;
     private final ExpenseFindService findService;
+    private final ExpenseAddService addService;
+    private final ExpenseUpdateService updateService;
 
     @Override
     public ExpenseDto save(ExpenseForm form, String token) {
@@ -40,5 +42,9 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
     @Override
     public Page<ExpenseSummarized> findAllPage(ExpenseFilter expenseFilter, String token, Pageable pageable) {
         return findService.findAllPage(expenseFilter, token, pageable);
+    }
+
+    public void deleteParticipation(Participation participation) {
+        updateService.deleteParticipation(participation);
     }
 }
