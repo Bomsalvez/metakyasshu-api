@@ -11,3 +11,21 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: '${MYSQL_ALLOW_EMPTY_PASSWORD}'
     ports:
       - '${MYSQL_PORT}'
+
+  static-site:
+    image: dockersamples/static-site
+    build: .
+    ports:
+      - "80:80"
+    restart: always
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    command:
+      - "http"
+      - "80"
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+      NGROK_DOMAIN: "monkfish-stirred-humpback.ngrok-free.app"
+    ports:
+      - "4040:4040"
