@@ -58,4 +58,8 @@ public class CollaboratorService implements InterfaceService<CollaboratorDto,Col
     public List<Collaborator> findCollaborator(User user, AccessLevel accessLevel) {
         return findService.findCollaborator(user, accessLevel);
     }
+
+    public List<Collaborator> findCollaborator(Long expense) {
+        return findService.findCollaborator(expense);
+    }
 }

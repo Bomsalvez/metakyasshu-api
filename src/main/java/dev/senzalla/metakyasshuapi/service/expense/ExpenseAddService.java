@@ -44,7 +44,7 @@ class ExpenseAddService {
 
     private void updateParticipants(Expense expense) {
         if (!expense.getAccessLevel().equals(AccessLevel.PRIVATE)) {
-            Set<Participation> participations = participantService.save(expense);
+            Set<Participation> participations = participantService.saveExpense(expense);
             repository.save(expense);
             expense.setParticipations(participations);
         }

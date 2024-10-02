@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -25,6 +26,7 @@ class CardAddService {
     private final CardMapper mapper;
 
 
+    @Transient
     public CardDto save(CardForm cardForm, String token) {
         try {
             User user = userService.findByToken(token);

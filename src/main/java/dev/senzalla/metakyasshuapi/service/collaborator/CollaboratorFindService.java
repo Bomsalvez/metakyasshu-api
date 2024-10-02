@@ -51,4 +51,8 @@ class CollaboratorFindService {
     public List<Collaborator> findCollaborator(User user, AccessLevel accessLevel) {
         return repository.findAllByUserHostAndAccessLevel(user, accessLevel);
     }
+
+    public List<Collaborator> findCollaborator(Long expense) {
+        return repository.findAllByExpense(expense);
+    }
 }

@@ -1,11 +1,15 @@
 package dev.senzalla.metakyasshuapi.service.expense;
 
+import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseFilter;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseForm;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
 import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
+import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationDto;
+import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationForm;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
+import dev.senzalla.metakyasshuapi.service.participant.ParticipantService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +22,7 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
     private final ExpenseFindService findService;
     private final ExpenseAddService addService;
     private final ExpenseUpdateService updateService;
+    private final ParticipantService participantService;
 
     @Override
     public ExpenseDto save(ExpenseForm form, String token) {
@@ -46,5 +51,10 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
 
     public void deleteParticipation(Participation participation) {
         updateService.deleteParticipation(participation);
+    }
+
+    public ParticipationDto addParticipant(ParticipationForm form, boolean recalculateParticipation) {
+        Expense expense = findService.findExpense(form.getExpense());
+        return participantService.save(form, expense, recalculateParticipation);
     }
 }

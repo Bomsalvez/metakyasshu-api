@@ -29,4 +29,11 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
             "WHERE c.userHost = :user " +
             "AND c.accessLevel = :accessLevel")
     List<Collaborator> findAllByUserHostAndAccessLevel(User user, AccessLevel accessLevel);
+
+    @Query("SELECT c FROM Expense e " +
+            "LEFT JOIN e.participations p " +
+            "LEFT JOIN p.collaborator c " +
+            "WHERE e.pkExpense = :expense")
+    List<Collaborator> findAllByExpense(Long expense);
 }
+

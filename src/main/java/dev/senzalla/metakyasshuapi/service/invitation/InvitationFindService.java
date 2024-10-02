@@ -49,4 +49,11 @@ class InvitationFindService {
             throw new NotFoundException("error.not-found", message);
         }
     }
+
+    public Optional<Invitation> findInvitationByUserCollaborator(Long pkInvitation, User user) {
+        Optional<Invitation> invitation = repository.findByPkInvitationAndCollaborator(pkInvitation, user);
+        checkInvitation(invitation);
+        return invitation;
+
+    }
 }

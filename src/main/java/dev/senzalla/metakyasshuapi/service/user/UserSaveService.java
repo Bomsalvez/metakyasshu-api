@@ -7,6 +7,7 @@ import dev.senzalla.metakyasshuapi.repository.UserRepository;
 import dev.senzalla.metakyasshuapi.service.email.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ class UserSaveService {
     private final UserRepository repository;
     private final EmailService emailService;
 
+    @Transient
     public void validateUser(String token) {
         Optional<User> user = repository.findByKeyUser(token);
         toolService.checkUserExists(user);
@@ -29,6 +31,7 @@ class UserSaveService {
         repository.save(userValidate);
     }
 
+    @Transient
     public void recoverPassword(RecoverAccess recoverAccess) {
         Optional<User> user = repository.findUserByCpfUserOrEmailUserAndConfirmedUser(recoverAccess.getCpf(), recoverAccess.getEmail(), true);
         toolService.checkUserExists(user);
@@ -39,6 +42,7 @@ class UserSaveService {
         emailService.sendEmailRecoverPassword(userRecover);
     }
 
+    @Transient
     public void resetPassword(String token, Login login) {
         Optional<User> user = repository.findUserByCpfUserAndKeyUser(login.getCpf(), token);
         toolService.checkUserExists(user);

@@ -12,10 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -25,8 +28,17 @@ public class SecurityWebApplication {
     private final AuthenticationManagerBean managerBean;
     private final MessageDecode messageDecode;
 
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200") // Pode adicionar várias origens
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors(this::configureCors);
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(httpSession -> httpSession.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
@@ -37,7 +49,19 @@ public class SecurityWebApplication {
         return http.build();
     }
 
-  private void exceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandling) {
+    private void configureCors(CorsConfigurer<HttpSecurity> c) {
+        c.configurationSource(request -> {
+            CorsConfiguration cors = new CorsConfiguration();
+            cors.applyPermitDefaultValues();
+            cors.addAllowedMethod(HttpMethod.PATCH);
+            cors.addAllowedMethod(HttpMethod.DELETE);
+            cors.addAllowedMethod(HttpMethod.PUT);
+            cors.addAllowedMethod(HttpMethod.OPTIONS);
+            return cors;
+        });
+    }
+
+    private void exceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandling) {
     exceptionHandling
         .authenticationEntryPoint((request, response, e) -> {
             String message = messageDecode.getMessage("error.access");
@@ -53,7 +77,7 @@ public class SecurityWebApplication {
 
     private void requestRegistry(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry requestRegistry) {
         requestRegistry
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html","/").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "/user/confirm/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/recover").permitAll()

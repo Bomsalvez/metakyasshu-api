@@ -11,6 +11,7 @@ import dev.senzalla.metakyasshuapi.service.email.EmailService;
 import dev.senzalla.metakyasshuapi.service.user.ToolsUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,7 @@ class InvitationSendService {
     private final EmailService emailService;
     private final InvitationMapper mapper;
 
+    @Transient
     public InvitationDto sendInvitation(InvitationForm invitationForm, String token) {
         Collaborator collaborator = collaboratorService.save(invitationForm, token);
         Invitation invitation = new Invitation();

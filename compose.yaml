@@ -26,6 +26,6 @@ services:
       - "80"
     environment:
       NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
-      NGROK_DOMAIN: "monkfish-stirred-humpback.ngrok-free.app"
+      NGROK_DOMAIN: "guinea-pet-freely.ngrok-free.app"
     ports:
       - "4040:4040"

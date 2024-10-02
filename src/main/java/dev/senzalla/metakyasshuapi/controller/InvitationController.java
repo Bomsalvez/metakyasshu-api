@@ -41,8 +41,8 @@ public class InvitationController {
     }
 
     @PatchMapping("/{pk}")
-    public ResponseEntity<InvitationDto> acceptInvitation(@PathVariable Long pk) {
-        InvitationDto invitation = service.accept(pk);
+    public ResponseEntity<InvitationDto> acceptInvitation(@PathVariable Long pk, @RequestHeader("Authorization") String token) {
+        InvitationDto invitation = service.accept(pk, token);
         return ResponseEntity.ok().body(invitation);
     }
 }

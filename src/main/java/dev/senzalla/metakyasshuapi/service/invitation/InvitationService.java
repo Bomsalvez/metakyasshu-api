@@ -43,7 +43,7 @@ public class InvitationService implements InterfaceService<InvitationDto, Boolea
         return findService.getInvitations(token, pageable, sent);
     }
 
-    public InvitationDto accept(Long pk) {
-        return acceptService.acceptInvitation(pk);
+    public InvitationDto accept(Long pk, String token) {
+        return acceptService.acceptInvitation(pk, token);
     }
 }

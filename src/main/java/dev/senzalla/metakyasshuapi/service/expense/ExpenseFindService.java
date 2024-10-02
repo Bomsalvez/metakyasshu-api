@@ -5,6 +5,7 @@ import dev.senzalla.metakyasshuapi.model.expense.mapper.ExpenseMapper;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseFilter;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
+import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationForm;
 import dev.senzalla.metakyasshuapi.model.types.Term;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.repository.ExpenseRepository;
@@ -51,5 +52,12 @@ class ExpenseFindService {
             throw new NotFoundException("error.not-found", message);
         }
         return mapper.toDto(optional.get());
+    }
+
+    public Expense findExpense(Long pkExpense) {
+        return repository.findById(pkExpense).orElseThrow(() -> {
+            String message = messageDecode.getMessage("entity.expense");
+            return new NotFoundException("error.not-found", message);
+        });
     }
 }
