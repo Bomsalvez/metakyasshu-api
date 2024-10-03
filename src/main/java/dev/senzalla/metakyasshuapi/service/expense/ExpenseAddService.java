@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.expense;
 
+import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
 import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import dev.senzalla.metakyasshuapi.model.expense.mapper.ExpenseMapper;
@@ -13,6 +14,7 @@ import dev.senzalla.metakyasshuapi.service.participant.ParticipantService;
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
 import dev.senzalla.metakyasshuapi.service.user.UserService;
 import dev.senzalla.metakyasshuapi.settings.exception.FieldNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,7 @@ class ExpenseAddService {
     @Transactional
     public ExpenseDto save(ExpenseForm form, String token) {
         checkTypeExpense(form);
+        checkCategory(form.getCategory());
         User user = userService.findByToken(token);
         Expense expense = mapper.toEntity(form);
         expense.setUser(user);
@@ -40,6 +43,13 @@ class ExpenseAddService {
         repository.save(expense);
         updateParticipants(expense);
         return mapper.toDto(expense);
+    }
+
+    private void checkCategory(@NotNull CategoryFormDto category) {
+        if (category.getPkCategory() == null || category.getPkCategory() == 0) {
+            String message = messageDecode.getMessage("entity.category");
+            throw new FieldNotFoundException("error.category", message);
+        }
     }
 
     private void updateParticipants(Expense expense) {
@@ -52,7 +62,7 @@ class ExpenseAddService {
     }
 
     private void checkTypeExpense(ExpenseForm expense) {
-        boolean expenseInCard = expense.getTypeExpense().equals(TypeExpense.CARD) && expense.getCard() == null;
+        boolean expenseInCard = expense.getTypeExpense().equals(TypeExpense.CARD) && (expense.getCard() == null || expense.getCard().getPkCard() == null || expense.getCard().getPkCard() == 0);
         boolean expenseInBooklet = expense.getTypeExpense().equals(TypeExpense.BOOKLET) && expense.getParcelExpense() == null;
 
         if (expenseInCard) {
