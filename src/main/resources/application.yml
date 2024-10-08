@@ -6,11 +6,11 @@ server:
     multipart:
       max-file-size: 16MB
       max-request-size: 16MB
-  ssl:
-    key-store: classpath:cert/keystore.p12
-    key-store-password: ${ SSL_PASSWORD }
-    key-store-type: PKCS12
-    key-alias: tomcat
+#  ssl:
+#    key-store: classpath:cert/keystore.p12
+#    key-store-password: ${ SSL_PASSWORD }
+#    key-store-type: PKCS12
+#    key-alias: tomcat
 
 # Jackson
 spring:
