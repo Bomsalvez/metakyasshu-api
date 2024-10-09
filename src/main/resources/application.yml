@@ -2,7 +2,7 @@
 server:
   servlet:
     application-display-name: metakyasshu
-    context-path: /metakyasshu
+#    context-path: /metakyasshu
     multipart:
       max-file-size: 16MB
       max-request-size: 16MB
