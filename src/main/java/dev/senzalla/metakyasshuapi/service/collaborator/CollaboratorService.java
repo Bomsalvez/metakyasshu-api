@@ -8,6 +8,7 @@ import dev.senzalla.metakyasshuapi.model.invitation.module.InvitationForm;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,5 +62,9 @@ public class CollaboratorService implements InterfaceService<CollaboratorDto,Col
 
     public List<Collaborator> findCollaborator(Long expense) {
         return findService.findCollaborator(expense);
+    }
+
+    public Collaborator findCollaboratorByPk(@NotNull Long collaborator) {
+        return findService.getCollaboratorEntity(collaborator);
     }
 }

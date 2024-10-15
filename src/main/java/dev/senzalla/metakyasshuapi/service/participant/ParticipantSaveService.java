@@ -13,14 +13,12 @@ import dev.senzalla.metakyasshuapi.settings.exception.DuplicateException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -66,17 +64,42 @@ class ParticipantSaveService {
 
     public ParticipationDto save(ParticipationForm form, Expense expense, boolean recalculateParticipation) {
         try {
+            checkPartipationExistence(form, expense);
             Participation participation = mapper.toEntity(form);
-            List<Collaborator> collaborators = new ArrayList<>();
-            expense.getParticipations().forEach(p -> collaborators.add(p.getCollaborator()));
-            calculateValueParticipation(expense, collaborators, participation);
+            Collaborator collaborator = collaboratorService.findCollaboratorByPk(form.getCollaborator());
+
+            checkValueAndPercentParticipation(expense, List.of(collaborator), participation);
+            participation.setCollaborator(collaborator);
+
             repository.save(participation);
             return mapper.toDto(participation);
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
             String error = messageDecode.extractMessage(e.getMessage());
             log.error("Error adding card: {}", error);
             String message = MessageDecode.decodeUnique(e.getMessage());
             throw new DuplicateException("error.duplicate", message);
+        } catch (Exception e) {
+            log.error("Error adding card: {}", e.getMessage());
+            throw new RuntimeException("error.save");
+        }
+    }
+
+    private void checkPartipationExistence(ParticipationForm form, Expense expense) {
+        Optional<Participation> participation = repository.findByCollaboratorAndExpense(form.getCollaborator(), expense.getPkExpense());
+        if (participation.isPresent()) {
+            throw new DataIntegrityViolationException("pa");
+        }
+    }
+
+    private void checkValueAndPercentParticipation(Expense expense, List<Collaborator> collaborators, Participation participation) {
+        boolean isValueParticipationNull = participation.getValueParticipation() == null || participation.getValueParticipation().compareTo(BigDecimal.ZERO) == 0;
+        boolean isPercentParticipationNull = participation.getPercentParticipation() == null || participation.getPercentParticipation() == 0;
+        if (!isValueParticipationNull && !isPercentParticipationNull) {
+            calculateValueParticipation(expense, collaborators, participation);
+            calculatePercentParticipation(collaborators, participation);
+        }else {
+            participation.setValueParticipation(BigDecimal.valueOf(0));
+            participation.setPercentParticipation(0f);
         }
     }
 }

@@ -23,6 +23,4 @@ public class CollaboratorDto implements Serializable {
     private LocalDate acceptDateCollaborator;
     @NotNull
     private UserDto userCollaborator;
-    @NotNull
-    private UserDto userHost;
 }

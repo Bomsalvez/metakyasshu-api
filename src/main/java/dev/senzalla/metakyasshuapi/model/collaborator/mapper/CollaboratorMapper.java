@@ -19,14 +19,12 @@ public class CollaboratorMapper implements InterfaceMapper<CollaboratorDto, Coll
 
     @Override
     public CollaboratorDto toDto(Collaborator collaborator) {
-        UserDto userHost = userMapper.toDto(collaborator.getUserHost());
         UserDto userCollaborator = userMapper.toDto(collaborator.getUserCollaborator());
         CollaboratorDto collaboratorDto = new CollaboratorDto();
         collaboratorDto.setPkCollaborator(collaborator.getPkCollaborator());
         collaboratorDto.setAcceptDateCollaborator(collaborator.getAcceptDateCollaborator());
         collaboratorDto.setAccessLevel(collaborator.getAccessLevel());
         collaboratorDto.setUserCollaborator(userCollaborator);
-        collaboratorDto.setUserHost(userHost);
         return collaboratorDto;
     }
 
@@ -42,13 +40,11 @@ public class CollaboratorMapper implements InterfaceMapper<CollaboratorDto, Coll
     }
 
     public CollaboratorSummarized toSummarized(Collaborator collaborator) {
-        UserSummarized userHost = userMapper.toSummarized(collaborator.getUserHost());
         UserSummarized userCollaborator = userMapper.toSummarized(collaborator.getUserCollaborator());
         CollaboratorSummarized collaboratorSummarized = new CollaboratorSummarized();
         collaboratorSummarized.setPkCollaborator(collaborator.getPkCollaborator());
         collaboratorSummarized.setAccessLevel(collaborator.getAccessLevel());
         collaboratorSummarized.setUserCollaborator(userCollaborator);
-        collaboratorSummarized.setUserHost(userHost);
         return collaboratorSummarized;
     }
 

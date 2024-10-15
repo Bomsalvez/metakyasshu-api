@@ -17,12 +17,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class CollaboratorSummarized implements Serializable {
     @NotNull
+    private Long pkCollaborator;
+    @NotNull
     private AccessLevel accessLevel;
     @NotNull
     private UserSummarized userCollaborator;
-    @NotNull
-    private UserSummarized userHost;
-    @NotNull
-    private Long pkCollaborator;
-
 }
