@@ -31,7 +31,7 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
 
     @Override
     public ExpenseDto update(Long pk, ExpenseForm form) {
-        return null;
+        return updateService.update(pk, form);
     }
 
     @Override

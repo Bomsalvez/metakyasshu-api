@@ -7,6 +7,8 @@ import dev.senzalla.metakyasshuapi.model.card.module.CardForm;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, CardDto> {
     @Override
@@ -48,6 +50,9 @@ public class CardMapper implements InterfaceMapper<CardDto, Card, CardForm, Card
     }
 
     public Card toEntityExpense(CardDto cardDto) {
+        if (Objects.isNull(cardDto)) {
+            return null;
+        }
         Card card = toEntity(cardDto);
         card.setPkCard(cardDto.getPkCard());
         return card;

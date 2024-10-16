@@ -82,7 +82,7 @@ public class Expense implements Serializable {
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fkCard", nullable = false)
+    @JoinColumn(name = "fkCard")
     private Card card;
 
     @OneToMany(mappedBy = "expense")

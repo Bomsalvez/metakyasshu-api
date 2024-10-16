@@ -41,15 +41,7 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
     @Override
     public Expense toEntity(ExpenseForm expenseForm) {
         Expense expense = new Expense();
-        expense.setNameExpense(expenseForm.getNameExpense());
-        expense.setDescriptionExpense(expenseForm.getDescriptionExpense());
-        expense.setValueExpense(expenseForm.getValueExpense());
-        expense.setDueDateExpense(expenseForm.getDueDateExpense());
-        expense.setTypeExpense(expenseForm.getTypeExpense());
-        expense.setCategory(categoryMapper.toEntityExpense(expenseForm.getCategory()));
-        expense.setParcelExpense(expenseForm.getParcelExpense());
-        expense.setAccessLevel(expenseForm.getAccessLevel());
-        expense.setCard(cardMapper.toEntityExpense(expenseForm.getCard()));
+        update(expense, expenseForm);
         return expense;
     }
 
@@ -67,5 +59,16 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
         expenseSummarized.setTypeExpense(expense.getTypeExpense());
         expenseSummarized.setParcelExpense(expense.getParcelExpense());
         return expenseSummarized;
+    }
+
+    public void update(Expense expense, ExpenseForm form) {
+        expense.setNameExpense(form.getNameExpense());
+        expense.setDescriptionExpense(form.getDescriptionExpense());
+        expense.setValueExpense(form.getValueExpense());
+        expense.setDueDateExpense(form.getDueDateExpense());
+        expense.setTypeExpense(form.getTypeExpense());
+        expense.setCategory(categoryMapper.toEntityExpense(form.getCategory()));
+        expense.setParcelExpense(form.getParcelExpense());
+        expense.setCard(cardMapper.toEntityExpense(form.getCard()));
     }
 }

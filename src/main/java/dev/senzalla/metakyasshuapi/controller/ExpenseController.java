@@ -42,4 +42,10 @@ public class ExpenseController {
         ExpenseDto dto = service.find(pk);
         return ResponseEntity.ok().body(dto);
     }
+
+    @PutMapping("/{pk}")
+    public ResponseEntity<ExpenseDto> updateExpense(@PathVariable Long pk, @RequestBody @Validated ExpenseForm expenseForm) {
+        ExpenseDto dto = service.update(pk, expenseForm);
+        return ResponseEntity.ok().body(dto);
+    }
 }
