@@ -9,8 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
+
     @Query("SELECT p FROM Participation p " +
-            "WHERE p.collaborator.pkCollaborator = :collaborator " +
-            "AND p.expense.pkExpense = :expense")
-    Optional<Participation> findByCollaboratorAndExpense(Long collaborator, Long expense);
+            "WHERE p.collaborator.userCollaborator.pkUser = :pkUser " +
+            "AND p.expense.pkExpense = :pkExpense")
+    Optional<Participation> findByUserCollaboratorAndExpense(Long pkUser, Long pkExpense);
 }

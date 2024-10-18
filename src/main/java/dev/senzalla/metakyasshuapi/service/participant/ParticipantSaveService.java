@@ -6,10 +6,12 @@ import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.participation.mapper.ParticipationMapper;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationDto;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationForm;
+import dev.senzalla.metakyasshuapi.model.user.entity.User;
 import dev.senzalla.metakyasshuapi.repository.ParticipationRepository;
 import dev.senzalla.metakyasshuapi.service.collaborator.CollaboratorService;
 import dev.senzalla.metakyasshuapi.service.tools.MessageDecode;
 import dev.senzalla.metakyasshuapi.settings.exception.DuplicateException;
+import dev.senzalla.metakyasshuapi.settings.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +87,7 @@ class ParticipantSaveService {
     }
 
     private void checkPartipationExistence(ParticipationForm form, Expense expense) {
-        Optional<Participation> participation = repository.findByCollaboratorAndExpense(form.getCollaborator(), expense.getPkExpense());
+        Optional<Participation> participation = repository.findByUserCollaboratorAndExpense(form.getCollaborator(), expense.getPkExpense());
         if (participation.isPresent()) {
             throw new DataIntegrityViolationException("pa");
         }
@@ -97,9 +99,21 @@ class ParticipantSaveService {
         if (!isValueParticipationNull && !isPercentParticipationNull) {
             calculateValueParticipation(expense, collaborators, participation);
             calculatePercentParticipation(collaborators, participation);
-        }else {
+        } else {
             participation.setValueParticipation(BigDecimal.valueOf(0));
             participation.setPercentParticipation(0f);
+            participation.setPaidParticipation(true);
         }
+    }
+
+    public void informPayment(Expense expense, User user) {
+        Optional<Participation> participation = repository.findByUserCollaboratorAndExpense(user.getPkUser(), expense.getPkExpense());
+        if (participation.isEmpty()) {
+            String message = messageDecode.getMessage("entity.participant");
+            throw new NotFoundException("error.not-found", message);
+        }
+
+        participation.get().setPaidParticipation(true);
+        repository.save(participation.get());
     }
 }

@@ -5,7 +5,6 @@ import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseFilter;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseForm;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
-import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationDto;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationForm;
 import dev.senzalla.metakyasshuapi.service.InterfaceService;
@@ -49,12 +48,12 @@ public class ExpenseService implements InterfaceService<ExpenseDto, ExpenseFilte
         return findService.findAllPage(expenseFilter, token, pageable);
     }
 
-    public void deleteParticipation(Participation participation) {
-        updateService.deleteParticipation(participation);
-    }
-
     public ParticipationDto addParticipant(ParticipationForm form, boolean recalculateParticipation) {
         Expense expense = findService.findExpense(form.getExpense());
         return participantService.save(form, expense, recalculateParticipation);
+    }
+
+    public Expense findExpense(Long expensePk) {
+        return findService.findExpense(expensePk);
     }
 }

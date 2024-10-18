@@ -72,7 +72,7 @@ jwt:
 
 
 host:
-  base_url: ${BASE_URL}
+  base_url: http://localhost:8080
   confirmation_url: '${host.base_url}/confirm?token='
   reset_password_url: '${host.base_url}/reset-password?token='
   confirmation_invite_url: '${host.base_url}/invitation/confirm-invite?token='

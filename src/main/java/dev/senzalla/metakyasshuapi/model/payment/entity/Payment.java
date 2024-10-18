@@ -1,4 +1,4 @@
-package dev.senzalla.metakyasshuapi.model;
+package dev.senzalla.metakyasshuapi.model.payment.entity;
 
 import dev.senzalla.metakyasshuapi.model.card.entity.Card;
 import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;

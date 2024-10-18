@@ -8,6 +8,7 @@ import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseDto;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseForm;
 import dev.senzalla.metakyasshuapi.model.expense.module.ExpenseSummarized;
 import dev.senzalla.metakyasshuapi.model.participation.mapper.ParticipationMapper;
+import dev.senzalla.metakyasshuapi.model.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
     private final ParticipationMapper participationMapper;
     private final CategoryMapper categoryMapper;
     private final CardMapper cardMapper;
+    private final UserMapper userMapper;
 
     @Override
     public ExpenseDto toDto(Expense expense) {
@@ -34,6 +36,7 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
         expenseDto.setAccessLevel(expense.getAccessLevel());
         expenseDto.setCategory(categoryMapper.toDto(expense.getCategory()));
         expenseDto.setCard(cardMapper.toDto(expense.getCard()));
+        expenseDto.setUser(userMapper.toSummarized(expense.getUser()));
         expenseDto.setParticipationDtos(participationMapper.toDto(expense.getParticipations()));
         return expenseDto;
     }

@@ -5,6 +5,7 @@ import dev.senzalla.metakyasshuapi.model.category.module.CategoryFormDto;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationDto;
 import dev.senzalla.metakyasshuapi.model.types.AccessLevel;
 import dev.senzalla.metakyasshuapi.model.types.TypeExpense;
+import dev.senzalla.metakyasshuapi.model.user.module.UserSummarized;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,5 +32,6 @@ public class ExpenseDto implements Serializable {
     private AccessLevel accessLevel;
     private CategoryFormDto category;
     private CardDto card;
+    private UserSummarized user;
     private Set<ParticipationDto> participationDtos;
 }
