@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Service
@@ -39,9 +40,21 @@ class PaymentSaveService {
         if (expense.getUser().equals(user)) {
             checkPayment(expense);
             checkPayment(paymentForm);
+            checkValuePayment(paymentForm, expense);
             save(paymentForm, expense);
         } else {
             participantService.informPayment(expense, user);
+        }
+    }
+
+    private void checkValuePayment(PaymentForm paymentForm, Expense expense) {
+        BigDecimal valuePayment = paymentForm.getValuePayment();
+        BigDecimal valueParticipation = expense.getParticipations().stream()
+                .map(Participation::getValueParticipation)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (!(valuePayment.add(valueParticipation).equals(expense.getValueExpense()))) {
+            throw new ParticipationException("error.payment-value");
         }
     }
 
