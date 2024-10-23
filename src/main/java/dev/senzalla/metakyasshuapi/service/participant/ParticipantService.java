@@ -1,5 +1,6 @@
 package dev.senzalla.metakyasshuapi.service.participant;
 
+import dev.senzalla.metakyasshuapi.model.goal.entity.Goal;
 import dev.senzalla.metakyasshuapi.model.participation.entity.Participation;
 import dev.senzalla.metakyasshuapi.model.expense.entity.Expense;
 import dev.senzalla.metakyasshuapi.model.participation.module.ParticipationDto;
@@ -27,5 +28,9 @@ public class ParticipantService   {
 
     public void informPayment(Expense expense, User user) {
         saveService.informPayment(expense, user);
+    }
+
+    public Set<Participation> saveGoal(Goal goal) {
+        return saveService.save(goal);
     }
 }
