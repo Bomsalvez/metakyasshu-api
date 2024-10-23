@@ -39,17 +39,7 @@ public class GoalMapper implements InterfaceMapper<GoalDto, Goal, GoalForm, Goal
     @Override
     public Goal toEntity(GoalForm goalForm) {
         Goal goal = new Goal();
-        goal.setNameGoal(goalForm.getNameGoal());
-        goal.setDescriptionGoal(goalForm.getDescriptionGoal());
-        goal.setValueGoal(goalForm.getValueGoal());
-        goal.setValuePayGoal(goalForm.getValuePayGoal());
-        goal.setCoinGoal(goalForm.getCoinGoal());
-        goal.setAccessLevel(goalForm.getAccessLevel());
-        goal.setAvailabilityGoal(goalForm.isAvailabilityGoal());
-        goal.setExpirationDateGoal(goalForm.getExpirationDateGoal());
-        goal.setDateCreatedGoal(goalForm.getDateCreatedGoal());
-        goal.setDateExecutionGoal(goalForm.getDateExecutionGoal());
-        goal.setCategory(categoryMapper.toEntityWithPk(goalForm.getCategory()));
+        update(goal, goalForm);
         return goal;
     }
 
@@ -69,5 +59,18 @@ public class GoalMapper implements InterfaceMapper<GoalDto, Goal, GoalForm, Goal
             goals.getPageable(),
             goals.getTotalElements()
         );
+    }
+
+    public void update(Goal goal, GoalForm form) {
+        goal.setNameGoal(form.getNameGoal());
+        goal.setDescriptionGoal(form.getDescriptionGoal());
+        goal.setValueGoal(form.getValueGoal());
+        goal.setValuePayGoal(form.getValuePayGoal());
+        goal.setCoinGoal(form.getCoinGoal());
+        goal.setAccessLevel(form.getAccessLevel());
+        goal.setAvailabilityGoal(form.isAvailabilityGoal());
+        goal.setExpirationDateGoal(form.getExpirationDateGoal());
+        goal.setDateExecutionGoal(form.getDateExecutionGoal());
+        goal.setCategory(categoryMapper.toEntityWithPk(form.getCategory()));
     }
 }

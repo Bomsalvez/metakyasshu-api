@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class GoalService implements InterfaceService<GoalDto, GoalFilter, GoalForm, GoalSummarized> {
-    private final GoalAddService addService;
+    private final GoalUpdateService updateService;
     private final GoalFindService findService;
+    private final GoalAddService addService;
+
 
     @Override
     public GoalDto save(GoalForm form, String token) {
@@ -24,7 +26,7 @@ public class GoalService implements InterfaceService<GoalDto, GoalFilter, GoalFo
 
     @Override
     public GoalDto update(Long pk, GoalForm form) {
-        return null;
+        return updateService.update(pk, form);
     }
 
     @Override

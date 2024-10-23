@@ -45,4 +45,11 @@ public class GoalController {
         Page<GoalSummarized> goals = service.findAllPage(filter, token, pageable);
         return ResponseEntity.ok().body(goals);
     }
+
+    @Operation(summary = "Update an existing goal")
+    @PutMapping("/{pk}")
+    public ResponseEntity<GoalDto> updateGoal(@PathVariable Long pk, @RequestBody @Validated GoalForm goalForm) {
+        GoalDto dto = service.update(pk, goalForm);
+        return ResponseEntity.ok().body(dto);
+    }
 }

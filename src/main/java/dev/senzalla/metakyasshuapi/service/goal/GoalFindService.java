@@ -44,4 +44,13 @@ class GoalFindService {
         Page<Goal> goals = repository.findGoal(goalFilter, pageable);
         return mapper.toSummarized(goals);
     }
+
+    public Goal findGoal(Long pk) {
+        Optional<Goal> goal = repository.findById(pk);
+        if (goal.isEmpty()) {
+            String message = messageDecode.getMessage("entity.goal");
+            throw new NotFoundException("error.not-found", message);
+        }
+        return goal.get();
+    }
 }
