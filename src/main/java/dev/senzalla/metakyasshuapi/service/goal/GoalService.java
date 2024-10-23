@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class GoalService implements InterfaceService<GoalDto, GoalFilter, GoalForm, GoalSummarized> {
     private final GoalAddService addService;
+    private final GoalFindService findService;
 
     @Override
     public GoalDto save(GoalForm form, String token) {
@@ -33,11 +34,11 @@ public class GoalService implements InterfaceService<GoalDto, GoalFilter, GoalFo
 
     @Override
     public GoalDto find(Long pk) {
-        return null;
+        return findService.find(pk);
     }
 
     @Override
     public Page<GoalSummarized> findAllPage(GoalFilter goalFilter, String token, Pageable pageable) {
-        return null;
+        return findService.findAllPage(goalFilter, token, pageable);
     }
 }
