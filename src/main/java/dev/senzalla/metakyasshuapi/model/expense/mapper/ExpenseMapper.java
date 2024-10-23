@@ -73,7 +73,7 @@ public class ExpenseMapper implements InterfaceMapper<ExpenseDto, Expense, Expen
         expense.setValueExpense(form.getValueExpense());
         expense.setDueDateExpense(form.getDueDateExpense());
         expense.setTypeExpense(form.getTypeExpense());
-        expense.setCategory(categoryMapper.toEntityExpense(form.getCategory()));
+        expense.setCategory(categoryMapper.toEntityWithPk(form.getCategory()));
         expense.setParcelExpense(form.getParcelExpense());
         expense.setCard(cardMapper.toEntityExpense(form.getCard()));
     }

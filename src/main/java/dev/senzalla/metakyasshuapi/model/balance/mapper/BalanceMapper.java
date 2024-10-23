@@ -32,7 +32,7 @@ public class BalanceMapper implements InterfaceMapper<BalanceDto, Balance, Balan
         balance.setDescriptionBalance(balanceDto.getDescriptionBalance());
         balance.setValueBalance(balanceDto.getValueBalance());
         balance.setDateBalance(balanceDto.getDateBalance());
-        balance.setCategory(categoryMapper.toEntityExpense(balanceDto.getCategory()));
+        balance.setCategory(categoryMapper.toEntityWithPk(balanceDto.getCategory()));
          return balance;
     }
 

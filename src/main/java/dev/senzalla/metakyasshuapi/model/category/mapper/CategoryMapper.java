@@ -37,7 +37,7 @@ public class CategoryMapper implements InterfaceMapper<CategoryFormDto, Category
         return categories.stream().map(this::toDto).toList();
     }
 
-    public Category toEntityExpense(CategoryFormDto categoryFormDto) {
+    public Category toEntityWithPk(CategoryFormDto categoryFormDto) {
         Category category = toEntity(categoryFormDto);
         category.setPkCategory(categoryFormDto.getPkCategory());
         return category;
