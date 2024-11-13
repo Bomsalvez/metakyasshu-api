@@ -18,25 +18,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SecurityWebApplication {
+public class SecurityWebApplication  {
 
     private final AuthenticationFilter authenticationFilter;
     private final AuthenticationManagerBean managerBean;
     private final MessageDecode messageDecode;
 
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("http://localhost:4200") // Pode adicionar várias origens
-//                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-//                .allowedHeaders("*")
-//                .allowCredentials(true);
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,7 +46,7 @@ public class SecurityWebApplication {
     private void configureCors(CorsConfigurer<HttpSecurity> c) {
         c.configurationSource(request -> {
             CorsConfiguration cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("*")); // Adicione as origens permitidas aqui
+            cors.setAllowedOrigins(List.of("/**", "http://localhost:4200","https://metakyasshu-api-production.up.railway.app/swagger-ui/index.html")); // Adicione as origens permitidas aqui
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
             cors.setAllowedHeaders(List.of("*"));
             cors.setAllowCredentials(true);
