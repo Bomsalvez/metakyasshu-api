@@ -46,7 +46,7 @@ public class SecurityWebApplication  {
     private void configureCors(CorsConfigurer<HttpSecurity> c) {
         c.configurationSource(request -> {
             CorsConfiguration cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("/**", "http://localhost:4200","https://metakyasshu-api-production.up.railway.app/swagger-ui/index.html#**")); // Adicione as origens permitidas aqui
+            cors.setAllowedOrigins(List.of("/**", "http://localhost:4200","https://metakyasshu-api-production.up.railway.app/swagger-ui/index.html#/**")); // Adicione as origens permitidas aqui
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
             cors.setAllowedHeaders(List.of("*"));
             cors.setAllowCredentials(true);
