@@ -29,7 +29,7 @@ spring:
   # JPA
   jpa:
     hibernate:
-      ddl-auto: CREATE
+      ddl-auto: UPDATE
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
